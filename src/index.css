@@ -1,0 +1,55 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap');
+.font-1 {
+  font-family: "Jost", sans-serif;
+}
+
+.font-2 {
+  font-family: "Nunito Sans", sans-serif;
+}
+
+.custom-shape-divider-top-1721341747 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+}
+.custom-shape-divider-bottom-1721342335 {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+  transform: rotate(180deg);
+}
+
+.custom-shape-divider-bottom-1721342335 svg {
+  position: relative;
+  display: block;
+  width: calc(110% + 1.3px);
+  height: 178px;
+  transform: rotateY(180deg);
+}
+
+.custom-shape-divider-bottom-1721342335 .shape-fill {
+  fill: #140F0F;
+}
+
+.custom-shape-divider-top-1721341747 svg {
+  position: relative;
+  display: block;
+  width: calc(100% + 1.3px);
+  height: 150px;
+  transform: rotateY(180deg);
+}
+
+.custom-shape-divider-top-1721341747 .shape-fill {
+  fill: #140F0F;
+}
