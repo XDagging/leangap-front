@@ -7,91 +7,91 @@ export default function CollegeDropdown(props) {
     const [studentList, setStudentList] = useState([
         {
             name: "John Doe",
-            bio: "Ipsum",
+            bio: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
             major: "Engineering",
             college: "Harvard",
             match: false
         },
         {
             name: "Jane Doe",
-            bio: "Ipsum",
+            bio: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
             major: "Biomedical",
             college: "Harvard",
             match: false
         },
         {
             name: "John Doe",
-            bio: "Ipsum",
+            bio: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
             major: "Mechanical Engineering",
             college: "Princeton",
             match: false
         },
         {
             name: "Jane Doe",
-            bio: "Ipsum",
+            bio: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
             major: "Environmental Science",
             college: "Princeton",
             match: false
         },
         {
             name: "John Doe",
-            bio: "Ipsum",
+            bio: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
             major: "Raptor Biology",
             college: "Stanford",
             match: false
         },
         {
             name: "Jane Doe",
-            bio: "Ipsum",
+            bio: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
             major: "Business",
             college: "Stanford",
             match: false
         },
         {
             name: "John Doe",
-            bio: "Ipsum",
+            bio: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
             major: "Finance",
             college: "UMich",
             match: false
         },
         {
             name: "Jane Doe",
-            bio: "Ipsum",
+            bio: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
             major: "Chemical Engineering",
             college: "UMich",
             match: false
         },
         {
             name: "John Doe",
-            bio: "Ipsum",
+            bio: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
             major: "Business Administration",
             college: "UPenn",
             match: false
         },
         {
             name: "Jane Doe",
-            bio: "Ipsum",
+            bio: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
             major: "Computer Science",
             college: "UPenn",
             match: false
         },
         {
             name: "John Doe",
-            bio: "Ipsum",
+            bio: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
             major: "Biotechnology",
             college: "Columbia",
             match: false
         },
         {
             name: "Jane Doe",
-            bio: "Ipsum",
+            bio: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
             major: "Music",
             college: "Columbia",
             match: false
         }
     ]);
     const [collegeSelected, setCollegeSelected] = useState(false);
-    const [matchRequestPlaced, setMatchRequestPlaced] = useState(false);
+    const [studentSelected, setStudentSelected] = useState(0)
     const [currentCollege, setCurrentCollege] = useState("");
 
     function handleCollegeSelection(college) {
@@ -99,12 +99,15 @@ export default function CollegeDropdown(props) {
         setCurrentCollege(college);
     }
 
-    function handleMatchRequest(student) {
-        setMatchRequestPlaced(true);
-    }
+    function handleStudentMatchRequest() {
 
-    function handleModalExit() {
-        setMatchRequestPlaced(false);
+        setStudentList((prevList) => {
+            let newList = prevList
+            console.log("new list created")
+            newList[studentSelected].match = true
+            console.log("match")
+            return newList
+        })        
     }
 
     return (
@@ -114,7 +117,10 @@ export default function CollegeDropdown(props) {
             {/* Body of Webpage */}
             <div> 
                 <div className="w-full min-h-[60vh] bg-base-200">
-                    {!collegeSelected ? <p className="font-1 text-3xl font-bold py-2 text-center bg-base-300 rounded-lg">Top Schools</p> : <p className="font-1 text-3xl font-bold py-3 text-center bg-base-300 rounded-lg">{currentCollege} students</p>}
+                    {!collegeSelected ? 
+                        <p className="font-1 text-3xl font-bold py-2 text-center bg-base-300 rounded-lg">Top Schools</p> : 
+                        <p className="font-1 text-3xl font-bold py-3 text-center bg-base-300 rounded-lg">{currentCollege} students</p>}
+
                     <div className="w-5/6 mx-auto mt-2">
                         {(collegeSelected) ? (/* College Student List */
                             <> 
@@ -130,22 +136,25 @@ export default function CollegeDropdown(props) {
                                                         <h2 className="card-title font-1 text-2xl">{student.name}</h2>
                                                         <p className="font-2"><span className="underline">{student.major}</span></p>
                                                         <div className="card-actions">
-                                                            <button className="btn btn-primary font-2" onClick={() => document.getElementById('my_modal_1').showModal()}>Learn More</button>
-                                                            <dialog id="my_modal_1" className="modal">
+                                                            <button className="btn btn-primary font-2" onClick={() => {
+                                                                setStudentSelected(i)
+                                                                document.getElementById('my_modal_' + i).showModal()
+                                                            }}>Learn More</button>
+                                                            <dialog id={"my_modal_" + i} className="modal">
                                                                 <div className="modal-box flex flex-col space-x-10 l-1/2">
                                                                     <div className="flex flex-row gap-3">
                                                                         <div id="basicInformation">
-                                                                            <h3 className="font-2 text-5xl">{student.name}</h3>
-                                                                            <p className="font-2 text-xl">{student.major}</p>
+                                                                            <h3 className="font-2 text-5xl">{studentList[studentSelected].name}</h3>
+                                                                            <p className="font-2 text-xl">{studentList[studentSelected].major}</p>
                                                                         </div>
                                                                         <div id="bioInformation">
-                                                                            <p>{student.bio}</p>
+                                                                            <p>{studentList[studentSelected].bio}</p> 
                                                                         </div>
                                                                     </div>
-                                                                    <div className="modal-action">
-                                                                        {(!matchRequestPlaced || student.match !== false) ? <button className="btn btn-accent font-2 font-bold" onClick={() => handleMatchRequest(student)}>Match</button> : <button className="btn btn-secondary btn-disabled font-2 font-bold">Match Requested</button>}
+                                                                    <div className="modal-action"> 
+                                                                        {(studentList[studentSelected].match == false) ? <button className="btn btn-accent" onClick={() => handleStudentMatchRequest()}>Match</button> : <button className="btn btn-secondary btn-disabled">Match Requested</button>}
                                                                         <form method="dialog">
-                                                                            <button className="btn" onClick={() => handleModalExit()}>Return</button>
+                                                                            <button id="return" className="btn">Return</button>
                                                                         </form>
                                                                     </div>
                                                                 </div>
