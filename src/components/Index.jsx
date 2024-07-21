@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react"
 import Navbar from "./Navbar"
 import Footer from "./Footer"
-
+import Pricing from "./Pricing"
 let carouselElement
 
 let interval;
@@ -63,17 +63,17 @@ export default function Index(props) {
 
         <Navbar />
 
-        <div className="hero w-full min-h-[60vh] bg-base-200">
+        <div className="hero w-full min-h-[60vh] bg-base-200"  data-theme="forest">
 
             <div className="hero-content">
                 <div className="w-full h-full flex flex-col gap-2 p-2">
                 <p className="font-1 font-bold text-6xl">Connect to your <span className="p-4 bg-base-300 rounded-lg">dream college</span></p>
                 <p className="text-lg font-2 font-semibold">Over 100+ mentors from top universities</p>
-                <div className="btn  btn-outline btn-secondary w-fit">
-                <p className="font-2 font-bold text-2xl">Sign up</p>
+                <a href="/signup" className="btn  btn-outline btn-secondary w-fit">
+                    <p className="font-2 font-bold text-2xl">Sign up</p>
                 
 
-                </div>
+                </a>
                 
                 </div>
                 
@@ -154,9 +154,11 @@ export default function Index(props) {
             
         </div> */}
 
-        <div className="bg-base-100">
-
-        <div className="carousel carousel-end max-h-[10vh] bg-secondary p-5 w-full gap-24" id="carousel">
+        <div className=" py-10">
+            
+                <div className="bg-base-300 p-10">
+                <p className="font-1 text-3xl font-bold p-5 text-center mb-10">Our college connections</p>
+                <div className="carousel carousel-end max-h-[10vh] p-5 w-full gap-24" id="carousel">
         {elements.map((element, i) => (
             <div className="carousel-item w-80 " key={i}>
                 <img src={element} alt="Drink" />
@@ -167,7 +169,13 @@ export default function Index(props) {
   
 </div>
 
-        </div>
+                </div>
+                
+</div>
+        
+        
+
+        
         <Footer />
         
 

@@ -11,7 +11,7 @@ export default function Footer(props) {
     return (
 
 
-        <div className="footer bg-neutral p-12">
+        <div className="footer bg-neutral p-12" data-theme="forest">
             <div>
                 <p className="font-1 font-bold text-2xl">Incepta</p>
                 <p className="font-2">A Hernandez Production</p>
