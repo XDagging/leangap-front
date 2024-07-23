@@ -54,8 +54,10 @@ export default function Login(props) {
 
         <div className="" data-theme="forest">
             <Navbar />
+            <div className="bg-base-100 pb-56">
 
-            <div className="bg-base-200 p-10 rounded-lg mt-24 mb-56 mx-auto w-fit relative">
+            
+            <div className="bg-base-200 p-10 rounded-lg mt-24 mx-auto w-fit relative">
                 <FormError error={errorMessage} />
                 <p className="text-3xl font-bold font-2 mb-4 text-center">Login</p>
                 <div className=" ">
@@ -85,7 +87,7 @@ export default function Login(props) {
 
 
             </div>
-
+            </div>
             
         </div>
         <Footer />

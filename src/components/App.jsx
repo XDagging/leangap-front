@@ -5,6 +5,7 @@ import Signup from "./Signup"
 import PricingPage from "./PricingPage"
 import Messaging from "./Messaging"
 import Main from "./Main"
+import Settings from "./Settings"
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 
@@ -28,6 +29,7 @@ export default function App(props) {
             <Route path="/pricing" element={<PricingPage />} />
             <Route path="/messaging" element={<Messaging />} />
             <Route path="/main" element={<Main />} />
+            <Route path="/Settings" element={<Settings />} />
             
         
           </Routes>

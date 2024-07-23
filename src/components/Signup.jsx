@@ -24,9 +24,6 @@ export default function Signup(props) {
     const nextSlide = () => {
         setCurrentSlide(prevSlide => prevSlide+1)
     }
-    const prevSlide = () => {
-        setCurrentSlide(prevSlide => prevSlide-1)
-    }
 
     const processForm = () => {
         let student;
@@ -215,7 +212,8 @@ export default function Signup(props) {
         )}
         {(currentSlide === 1) && (
             <div className="text-left">
-                <p className="font-2 text-2xl font-bold">Basic Information</p>
+                <p className="font-2 text-2xl font-bold">Basic Information:</p>
+                <p className="font-1 text-lg font-semibold">{userType==="student" ? "Student signup" : "College signup"}</p>
                 
                 <div className="p-4 rounded-lg bg-base-100 grid grid-cols-2  gap-4">
 
@@ -238,7 +236,7 @@ export default function Signup(props) {
                                 <p className="font-2 font-semibold">{userType==="student"? "Personal": "College"} Email: </p>
                             </div>
                             <div>
-                                <input type="email" className="input input-accent font-1 font-semibold" placeholder="example@gmail.com" value={email} onChange={(e) => {
+                                <input type="email" className="input input-accent font-1 font-semibold" placeholder={userType==="student"?"example@gmail.com":"example@harvard.edu"} value={email} onChange={(e) => {
                                     setEmail(e.target.value)
                                 }} />
                             </div>

@@ -130,7 +130,7 @@ export default function Messaging(props) {
     
             <div className="flex flex-row min-w-screen min-h-screen" data-theme="dark">
 
-                <LogNav />
+                {/* <LogNav /> */}
 
                 <div className="w-full  min-h-screen flex flex-row">
                     <div className="w-2/6 flex-col flex gap-2 bg-base-200 h-full p-4">
