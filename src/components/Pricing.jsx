@@ -1,8 +1,5 @@
 import React from "react"
-
 import { FaPeopleCarry } from "react-icons/fa";
-
-
 
 export default function Pricing(props) {
 
@@ -11,71 +8,78 @@ export default function Pricing(props) {
     // true = redirects to /signup
     // false = goes to stripe
 
-
-
+    const options = {
+        clientSecret: "sk_test_51PfqkI2KcqpBgMstkpkT5sShasXfLaKTaRpxRtzkitSr5DicHhKY60gcJ4CaVhCVi3m8Q0JFd8pTFDHqSAuV18yd004zo4fjch"
+    };
 
     return (
+        <div className="p-3 rounded-lg mx-auto w-8/12 my-16 space-y-8" data-theme="forest">
+            <p className="text-center font-1 text-6xl font-bold">Pricing:</p>
 
-
-        <div className=" p-10 rounded-lg mx-auto w-4/6 mt-24" data-theme="forest">
-            <p className="text-center font-1 text-3xl font-bold">Pricing:</p>
-
-            <div className="w-4/6 mx-auto">
-                <div className="w-full h-full p-4">
-                    <div className="p-2 bg-base-300 rounded-lg w-4/6 mx-auto">
-                        <div className="p-2">
-                        <div className="w-4/6 mx-auto p-2 rounded-lg">
-                            <FaPeopleCarry className="size-12 mx-auto" />
-                            <p className="text-center font-1 font-bold text-2xl mt-2">Our Standard Plan</p>
-                            <p className="text-center font-2">Quickly and efficiently connect with people from up to 3 different colleges.</p>
+            <div className="grid grid-cols-2 gap-20 justify-evenly p-10">
+                <div className="outline outline-green-500 outline-offset-1 outline-4 rounded-lg w-full mx-auto bg-base-300">
+                    <div className="w-full h-full p-2 mb-20">
+                        <div className="p-2 bg-base-300 rounded-lg w-full mx-auto">
+                            <div >
+                                <div className="w-11/12 mx-auto p-2 pb-0 rounded-lg space-y-5">
+                                    <div className="flex flex-row justify-center content-center items-center gap-2">
+                                        <p className="text-center font-1 font-bold text-5xl my-2">Token Prices</p>
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-12">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <ul className="font-2 text-4xl justify-center text-center space-y-12">
+                                            <li>Use <span className="font-bold underline">tokens</span> to pay for <span className="font-bold underline">conversations</span></li>
+                                            <li>Each conversation lasts for <span className="font-bold underline">72 hours</span></li>
+                                            <li>Tokens are received within <span className="font-bold underline">10 hours</span> of payment</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>                        
                         </div>
-                        <div>
-                            <ul className="list-disc w-4/6 mx-auto mt-4 p-2 bg-base-300 font-1 flex flex-col gap-2">
-                                <li>Up to 3 student connections per month</li>
-                                <li>Guaranteed 72+ hours of messaging time.</li>
-                                <li>Guaranteed real conversations.</li>
-                            </ul>
-                        </div>
-
-                        </div>
-                        
-                        
-                        
-
-                        <div className="w-full mx-auto p-4 bg-base-100 mt-6 rounded-b-lg">
-                            <p className="text-center font-2 text-3xl font-bold">$39.99</p>   
-                            <div className="w-fit mx-auto mt-4">
-                                {(props.signup) && (
-                                    <a href="/signup" className="btn btn-wide text-lg btn-accent font-1">
-                                        <p>Buy now</p>
-                                    </a>
-                                )}
-                                {(!props.signup) && (
-                                    <a href="#" className="btn btn-wide text-lg btn-accent font-1">
-                                        <p>Buy now</p>
-                                    </a>
-                                )}
-                                      
-                            </div>
-                            
-                        </div>
-                         
                     </div>
-                    
-                    
-                
-
-
                 </div>
-
-
+                <div className="flex flex-col outline outline-green-500 outline-offset-1 outline-4 rounded-lg w-full p-4 pb-10 gap-4 mx-auto bg-base-300 justify-evenly">
+                        <div className="flex flex-row justify-center items-center content-center">
+                            <p className="font-1 text-5xl p-3 font-bold underline text-center">
+                                Token Bundles
+                            </p>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-12">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 0v3.75m-16.5-3.75v3.75m16.5 0v3.75C20.25 16.153 16.556 18 12 18s-8.25-1.847-8.25-4.125v-3.75m16.5 0c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125" />
+                            </svg>
+                        </div>
+                        <div className="grid grid-cols-2 w-full items-center justify-stretch gap-7">
+                            <div className="outline-gray-500 font-1 rounded-lg font-semibold text-4xl text-white text-center">$8.99</div>
+                            <button className="btn btn-primary rounded-lg w-5/6">
+                                <a href="https://buy.stripe.com/test_6oE8zn24qbHwcdW007" className="text-2xl font-1 font-bold">100</a>
+                            </button>
+                        </div>
+                        <div className="grid grid-cols-2 w-full items-center justify-stretch gap-7">
+                            <div className="outline-gray-500 rounded-lg text-4xl text-white text-center font-1 font-semibold">
+                                $24.99
+                            </div>
+                            <button className="btn btn-primary rounded-lg w-5/6 items-center relative">
+                                <a href="https://buy.stripe.com/test_7sI4j7fVg9zo5PycMU" className="text-2xl font-1 font-bold">300</a>
+                                <div className="badge badge-error text-sm absolute top-[-10px] right-[-20px] font-1">8% MORE</div>
+                            </button>
+                        </div>
+                        <div className="grid grid-cols-2 w-full items-center justify-stretch gap-7">
+                            <div className="outline-gray-500 rounded-lg text-4xl text-white text-center font-1 font-semibold">$44.99</div>
+                            <button className="btn btn-primary outline outline-yellow-500 outline-offset-4 outline-4 rounded-lg w-5/6 relative">
+                                <a href="https://buy.stripe.com/test_5kAdTH10meTI2DmeV3" className="text-2xl font-1 font-bold">600</a>
+                                <div className="badge badge-error text-sm absolute top-[-10px] right-[-20px] font-1">20% MORE</div>
+                            </button>
+                            
+                            <p className="text-yellow-500 col-span-2 font-2 font-bold text-2xl text-start">✨ BEST DEAL</p>
+                        </div>
+                        {/* <div className="w-fit ml-auto mr-8">
+                            <div className="">
+                                <p className="text-yellow-500 font-2 font-bold text-2xl text-start">✨ BEST DEAL</p>
+                            </div>
+                        </div> */}
+                </div>
             </div>
-
-
-
-
-
-
         </div>
     )
 }

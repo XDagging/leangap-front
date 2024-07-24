@@ -16,6 +16,7 @@ export default function Signup(props) {
     const [currentInterest, setCurrentInterest] = useState("")
     const [interests, setInterests] = useState([])
     const [email, setEmail] = useState("")
+    const [img, setImg] = useState("")
     const [userType, setUserType] = useState("")
     const [name, setName] = useState("")
     const [errorMessage, setErrorMessage] = useState("")
@@ -48,7 +49,8 @@ export default function Signup(props) {
                     password: password,
                     grade: grade,
                     bio: bio,
-                    email: email
+                    email: email,
+                    img: img
                 })
               }
             const response = await fetch(endpoint + "/signup", headers)
@@ -353,6 +355,7 @@ export default function Signup(props) {
                             
                         </div>
                         {(userType === "college") && (
+                            <>
                             <div className="relative">
                                 
                                 <textarea onChange={(e) => {
@@ -361,8 +364,27 @@ export default function Signup(props) {
 
 
                         </div>
+
+                        <div className="">
+                            <p className="font-2 font-semibold ">Upload Profile Picture:</p>
+                            <input type="file" className="file-input file-input-primary font-1" accept="image/*" onChange={(e) => {
+                                const file = e.target.files[0]
+
+
+                                if (file) {
+                                    const reader = new FileReader()
+                                    reader.onload = () => {
+                                        console.log(reader)
+                                        setImg(reader.result)
+                                    }
+                                    reader.readAsDataURL(file)
+                                }
+                            }} />
+                        </div>
+                            </>
+                            
                         )}
-                        
+          
                         <div className="grid grid-col-2 items-center">
                             <div className="btn btn-accent btn-wide" onClick={() => {
                                 submitForm()

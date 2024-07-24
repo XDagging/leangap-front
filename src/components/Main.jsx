@@ -1,12 +1,15 @@
 import React, {useState, useEffect} from "react";
 import LogNav from "./LogNav"
+import Dashboard from "./Dashboard"
 import {UserContext, MenuContext} from "./Contexts"
 import Loading from "./Loading"
+import Messaging from "./Messaging"
 import Settings from "./Settings"
+import Pricing from "./Pricing"
 const endpoint = "https://localhost:300"
 export default function Main(props){
-
-
+    const [contacts, setContacts] = useState([])
+    const [search, setSearch] = useState("")
     const [user, setUser] = useState({
         uuid: null,
         name: null,
@@ -16,6 +19,47 @@ export default function Main(props){
 
     })
 
+    const callSearch = () => {
+        return new Promise (async(resolve) => {
+            const headers = {
+                method: "POST",
+                mode: "cors",
+                credentials: "include",
+                headers: {
+                  "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    query: search
+                })
+            }
+
+            const response = await fetch(endpoint + "/search", headers)
+            resolve(response.json())
+        })
+    }
+
+
+    const processSearch = () => {
+        
+        callSearch().then((res) => {
+            if (res.code === "err") {
+                window.location.replace("/login")
+            } else if (res.code === "ok") {
+                setSearchResults(res.message)
+            } else {
+                window.location.replace("/login")
+            }
+        })
+    }
+
+    useEffect(() => {
+        processSearch()
+
+    }, [search])
+
+
+
+    const [searchResults, setSearchResults] = useState([])
 
 
 
@@ -40,25 +84,27 @@ export default function Main(props){
     const [topSchool, setTopSchool] = useState([
         {
             name: "Harvard",
-            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Harvard_University_logo.svg/600px-Harvard_University_logo.svg.png"
+            // img: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Harvard_University_logo.svg/600px-Harvard_University_logo.svg.png"
         },
         {
             name: "Stanford",
-            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Harvard_University_logo.svg/600px-Harvard_University_logo.svg.png"
+            // img: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Harvard_University_logo.svg/600px-Harvard_University_logo.svg.png"
         },
         {
             name: "MIT",
-            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Harvard_University_logo.svg/600px-Harvard_University_logo.svg.png"
+            // img: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Harvard_University_logo.svg/600px-Harvard_University_logo.svg.png"
         },
         {
             name: "UMD",
-            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Harvard_University_logo.svg/600px-Harvard_University_logo.svg.png"
+            // img: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Harvard_University_logo.svg/600px-Harvard_University_logo.svg.png"
         },
         {
             name: "HBA",
-            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Harvard_University_logo.svg/600px-Harvard_University_logo.svg.png"
+            // img: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Harvard_University_logo.svg/600px-Harvard_University_logo.svg.png"
         },
     ])
+
+   
 
     const [studentList, setStudentList] = useState([
         {
@@ -185,10 +231,16 @@ export default function Main(props){
     }
 
 
-    const callStudent = (i) => {
+    const callStudent = (i, search) => {
         return new Promise(async(resolve) => {
-
-            let school = topSchool[i].name
+            let school;
+            if (search === false) {
+                school = topSchool[i].name
+            } else {
+                school = i
+               
+            }
+            
 
 
             const headers = {
@@ -208,20 +260,33 @@ export default function Main(props){
             resolve(response.json())
         })
     }
-    const processStudents = async (i) => {
+    const processStudents = async (i, search) => {
         setLoading(true)
-        callStudent(i).then((res) => {
+        callStudent(i, search).then((res) => {
             console.log(res)
             if (res.code === "err") {
-                // window.location.replace("/login")
+                window.location.replace("/login")
             } else if (res.code === "ok") {
                 let newStudents =[ ]
+                
                 res.message.map((person) => {
-                    let college = topSchool[i].name
+                    let college
+                    if (search === false) {
+                       
+                        college = topSchool[i].name
+                       
+                        
+                    } else {
+                        college = i
+                       
+                    }
+                    
+                    
                     let studentAdded = {
                         name: person.name,
                         bio: person.bio,
                         major: person.major,
+                        img: person.img,
                         college: college.toLowerCase(),
                         match: false,
                         uuid: person.uuid
@@ -234,6 +299,7 @@ export default function Main(props){
                 })
                 setStudentList(newStudents)
                 setLoading(false)
+                
                
              
 
@@ -262,14 +328,19 @@ export default function Main(props){
 
         })
     }
+    
 
+   
     useEffect(() => {
-        setLoading(true)
-        callGetUser().then((res) => {
+        async function doEverything() {
+            
+            setLoading(true)
+            await callGetUser().then((res) => {
             if (res.code === "err") {
                 window.location.replace("/login")
             } else if (res.code === "ok") {
                 setUser(res.message)
+                setContacts(res.message["contacts"])
                 setLoading(false)
 
             } else {
@@ -277,6 +348,13 @@ export default function Main(props){
             }
 
         })
+
+
+        
+        }
+        doEverything()
+        
+        
 
 
 
@@ -298,7 +376,7 @@ export default function Main(props){
                 {(loading) && (
                     <Loading />
                 )}
-                {(currentMenu === "Dashboard") && (
+                {((currentMenu === "Dashboard") && (user.student)) && (
                     <>
                     {(schoolOpen !== null) && (
                         <div className="relative w-full h-full">
@@ -334,9 +412,10 @@ export default function Main(props){
                                 <div key={i} className="w-full h-full rounded-lg bg-base-300 p-4 select-none">
                                 <dialog className="modal" id={"my_modal_"+i}>
                                         <div className="modal-box">
-                                            <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" className="h-40 w-full rounded-lg object-cover" />
+                                            <img src={"https://inceptaimg.s3.us-east-1.amazonaws.com/"+student.img} className="h-40 w-full rounded-lg object-cover" />
                                             <div className="p-2">
                                                 <p className="font-1 font-bold text-2xl">{student.name}</p>
+                                                
                                                 <div className="flex flex-row gap-2">
                                                 {student.major.split(",").map((major,i) => (
                                                     <p key={i} className="font-1 px-4 py-2 rounded-full font-bold w-fit bg-base-300">{major}</p>    
@@ -428,9 +507,16 @@ export default function Main(props){
 
 
                                     </dialog>
-                                    <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" className="h-40 mx-auto w-full object-cover rounded-lg" />
-                                    <div className="p-4 flex flex-col">
-                                    <p className="font-1 font-bold text-2xl">{student.name}</p>
+                                    <img src={"https://inceptaimg.s3.us-east-1.amazonaws.com/"+student.img} className="h-40 mx-auto w-full object-cover rounded-lg" />
+                                    <div className=" py-2 flex flex-col relative">
+                                    <div className="flex flex-row items-center justify-between mb-2">
+                                    <p className="font-1 font-bold text-2xl">{student.name.split(" ")[0] +" " + student.name.split(" ")[1].substring(0,1) + "."}</p>
+                                    <div className="w-fit top-2 right-2 px-2 py-1 rounded-full  border-2 border-accent font-1 font-bold text-lg">
+                                        <p>85 tokens</p>
+                                    </div>
+                                    </div>
+                                    
+
                                     <div className="flex flex-row gap-3">
                                     {student.major.split(",").map((major,i) => (
                                         <p key={i} className="font-1 px-4 py-2 rounded-full font-bold w-fit bg-base-200">{major}</p>
@@ -470,19 +556,52 @@ export default function Main(props){
                     )}
                     {(schoolOpen === null) && (
                         <div className="p-10 bg-base-200 w-full">
-                    <p className="font-2 text-4xl font-bold mb-10">Dashboard:</p>
+
+                    <p className="font-2 text-4xl font-bold mb-2">Dashboard:</p>
+                    <div className="p-5 w-fit mx-auto mb-10 ">
+                    <div className="w-fit mx-auto relative">
+                        <div className="join">
+                            <input value={search} onChange={(e) => setSearch(e.target.value)} className="input w-96 input-primary font-1 join-item" placeholder="Search for College..." />
+                            <div className="join-item btn btn-primary font-1 btn-outline">
+                                Search
+                            </div>
+
+                        </div>
+                        {(searchResults.length > 0) && (
+                            <div className="absolute p-2 bg-base-300 w-full mt-1 rounded-lg flex flex-col gap-2">
+                            {searchResults.map((result,i) => (
+                                <div onClick={() => {
+                                    setSchoolOpen(i)
+                                    processStudents(result.school, true)
+                                }} key={i} className="flex relative flex-row select-none cursor-pointer group hover:bg-primary transition-all gap-4 items-center justify-items-center bg-base-100 rounded-lg p-2">
+                                  
+                                    <p className="font-1 font-semibold text-lg group-hover:text-white">{result.school}</p>
+                                    <div className="absolute right-2 top-[50%] translate-y-[-50%] w-10 bg-base-300 text-center rounded-lg font-1 font-semibold">
+                                        {result.mentors}+
+                                    </div>
+                                </div>
+                    ))}
+                            
+                        </div>
+                        )}
+                        
+                        
+                    </div>
+                    
+
+                    </div>
                     <div className="grid grid-cols-3 items-center justify-items-center gap-4">
 
                         {topSchool.map((school,i) => (
-                            <div key={i} className="bg-base-300 w-full h-full p-8 rounded-lg btn btn-base-200" onClick={() => {
+                            <div key={i} className="bg-base-300 w-full h-full p-8 rounded-lg btn btn-base-200 flex flex-col" onClick={() => {
 
 
                                 
                                 setSchoolOpen(i)
-                                processStudents(i)
+                                processStudents(i, false)
                             }}>
-                                <img alt="schoolimage" src={school.img} className="p-2 bg-base-100 rounded-lg" />
-                                <p className="font-1 text-4xl text-center font-bold pt-4">{school.name}</p>
+                                {/* <img alt="schoolimage" src={school.img} className="p-2 bg-base-100 rounded-lg" /> */}
+                                <p className="font-1 text-4xl text-center font-bold">{school.name}</p>
                         
                             </div>
 
@@ -499,9 +618,21 @@ export default function Main(props){
                     
 
                 )}
+                {((currentMenu === "Dashboard") && (!user.student)) && (
+                    <Dashboard />
+                )}
+                {(currentMenu === "Messaging") && (
+                    <Messaging contacts={contacts} />
+                )}
 
                 {(currentMenu === "Settings") && (
                     <Settings />
+                )}
+                {(currentMenu === "Pricing") && (
+                    <div className="bg-base-300 w-full h-full p-10" data-theme="forest">
+                    <Pricing />
+                    </div>
+                    
                 )}
                 
 

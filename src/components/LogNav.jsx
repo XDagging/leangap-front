@@ -16,33 +16,56 @@ export default function LogNav(props) {
 
     return (
 
-        <div className="p-4 bg-base-300 min-w-[20vw] h-screen relative" data-theme="forest">
-
+        <div className="p-4 bg-base-300 min-w-[20vw] h-screen sticky top-0 left-0" data-theme="forest">
+            <div className="w-full h-full relative">
             <div className="absolute bottom-0 left-0 w-full p-2 py-10 bg-base-100">
-                <div className="tooltip tooltip-right font-2">
+                {(user.student) && (
+                    <>
+                    <div className="tooltip tooltip-right font-2">
                 <p className="font-1 font-bold text-lg">Tokens Remaining: <span className="p-2 rounded-full bg-base-300 ml-2">{user.tokens}</span></p>
                 
 
                 </div>
-                <div className="flex flex-row gap-2 tooltip tooltip-right font-2"  data-tip="A token is used everytime you have connect with a student. You are given 3 tokens a month for free.">
-                    <p className="font-1 link">Buy more</p>
+                <div className="flex flex-row gap-2 tooltip tooltip-right font-2 text-left"  data-tip="Tokens are used to purchase connections with college students.">
+                    <p className="font-1 link" onClick={() => {
+                        changeNav("Pricing")
+                    }}>Buy more</p>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-6">
                         <path fillRule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm11.378-3.917c-.89-.777-2.366-.777-3.255 0a.75.75 0 0 1-.988-1.129c1.454-1.272 3.776-1.272 5.23 0 1.513 1.324 1.513 3.518 0 4.842a3.75 3.75 0 0 1-.837.552c-.676.328-1.028.774-1.028 1.152v.75a.75.75 0 0 1-1.5 0v-.75c0-1.279 1.06-2.107 1.875-2.502.182-.088.351-.199.503-.331.83-.727.83-1.857 0-2.584ZM12 18a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z" clipRule="evenodd" />
                     </svg>
                 </div>
+                    </>
+                )}
+                {(!user.student) && (
+                    <>
+                    <a href="/" className="font-1 font-semibold btn btn-ghost text-2xl">Incepta</a>
+                    <p className="font-2 ml-4 font-semibold">Copyright 2024</p>
+                    </>
+                    
+                )}
+                
                 
 
             </div>
             <div className="p-2 flex flex-col gap-2">
             {(user.name !== null) && (
                 <div className="bg-base-100 p-4 rounded-lg">
-
-<div className="avatar placeholder">
+            {(user.student) && (
+                <div className="avatar placeholder">
     <div className="bg-base-300 w-16 rounded-full">
         <p className="text-3xl font-2 font-bold">{user.name.substring(0,1)}</p>
     </div>
 
 </div>
+            )}
+            {(!user.student) && (
+                <div className="avatar w-24 h-24 rounded-full">
+                    <img alt="profilePic" src={"https://inceptaimg.s3.amazonaws.com/" + user.img} className="w-full h-full rounded-full object-cover" />
+
+
+                </div>
+            )}
+
 <p className="font-1 text-lg font-bold p-2">{user.name}</p>
 
 </div>
@@ -59,13 +82,13 @@ export default function LogNav(props) {
 
 
                     </div>
-                    <div className="btn btn-secondary font-1">
+                    <a className="btn btn-secondary font-1" onClick={() => changeNav("Messaging")}>
                         <p className="font-2 font-bold text-lg">Messages</p><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-6">
   <path fillRule="evenodd" d="M4.848 2.771A49.144 49.144 0 0 1 12 2.25c2.43 0 4.817.178 7.152.52 1.978.292 3.348 2.024 3.348 3.97v6.02c0 1.946-1.37 3.678-3.348 3.97-1.94.284-3.916.455-5.922.505a.39.39 0 0 0-.266.112L8.78 21.53A.75.75 0 0 1 7.5 21v-3.955a48.842 48.842 0 0 1-2.652-.316c-1.978-.29-3.348-2.024-3.348-3.97V6.741c0-1.946 1.37-3.68 3.348-3.97Z" clipRule="evenodd" />
 </svg>
 
 
-                    </div>
+                    </a>
 
 
 
@@ -90,6 +113,10 @@ export default function LogNav(props) {
                 
 
             </div>
+
+            </div>
+
+            
 
 
 

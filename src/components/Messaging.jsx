@@ -1,82 +1,152 @@
-import React, {useState, useEffect} from "react"
+import React, {useState, useEffect, useContext} from "react"
+import {UserContext} from "./Contexts"
 import LogNav from "./LogNav"
 
 
 
-
+const endpoint = "https://localhost:300"
 export default function Messaging(props) {
-    const [contacts, setContacts] = useState(
-        [
-            {
-                name: "Sam",
-                uuid: "1",
-
-            }, 
-            {
-                name: "John",
-                uuid: "2",
-
-            }, 
-            {
-                name: "Anthony",
-                uuid: "3",
-
-            },
-            {
-                name: "Alexander",
-                uuid: "4",
-
-            }]
-    )
-
-
+    const [contacts, setContacts] = useState([])
+    const user = useContext(UserContext)
+    const [activeContact, setActiveContact] = useState(null)
     const [messageText, setMessageText] = useState("")
 
 
 
 
-    const [messages, setMessages] = useState([
-        {
-            uuid: "1",
-            message: "hello world",
-            timestamp: 1000
+
+    
+    const [messages, setMessages] = useState([])
+
+    const callFeed = () => {
+        return new Promise(async(resolve) => {
+            const headers = {
+                method: "GET",
+                mode: "cors",
+                credentials: "include",
+                headers: {
+                  "Content-Type": "application/json"
+                },
+              }
+
+              const response = await fetch(endpoint + "/getFeed", headers)
+              resolve(response.json())
+        })
+    }
+    
+    const callMessages = () => {
+        return new Promise(async(resolve) => {
+            const headers = {
+                method: "POST",
+                mode: "cors",
+                credentials: "include",
+                headers: {
+                  "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    person: contacts[activeContact].uuid
+                })
+            }
+
+            const response = await fetch(endpoint + "/getMessages", headers)
+            resolve(response.json())
+
+            
+        })
+    }
+
+    useEffect(() => {
+        if (activeContact !== null) {
 
 
-        },
-        {
-            uuid: "me",
-            message: "hello world",
-            timestamp: 1001
+            callMessages().then((res) => {
+                if (res.code === "err") {
+                    // window.location.replace("/login")
+                } else if (res.code === "ok") {
+
+                    setContacts((prevContacts) => {
+                        let newContacts = prevContacts
 
 
-        },
-        {
-            uuid: "1",
-            message: "everything u bitch",
-            timestamp: 1002
+                        newContacts[activeContact].messages = 0
+                        return newContacts
+
+                    })
 
 
-        },
-        {
-            uuid: "me",
-            message: "imagine not working rn wowzers",
-            timestamp: 1003
+
+                    setMessages(res.message)
+
+                    
 
 
-        },
-        {
-            uuid: "1",
-            message: "type shit",
-            timestamp: 1004
-        },
-        {
-            uuid: "1",
-            message: "hello world",
-            timestamp: 1005
+                } else {
+                    // window.location.replace("/login")
+                }
+            })
+        }
+
+    },[activeContact])
 
 
-        },
-    ])
+
+
+
+    useEffect(() => {
+        callFeed().then((res) => {
+            if (res.code === "err") {
+                window.location.replace("/login")
+            } else if (res.code === "ok") {
+                let newContacts = []
+                res.message.map((contact) => {  
+                    console.log("current contact", contact)
+                    for (let i=0; i<props.contacts.length; i++) {
+                        if (contact.uuid === props.contacts[i].uuid) {
+                            newContacts.push({...props.contacts[i], messages: contact.messageLength})
+                        }
+                    }
+                })
+                console.log("new contacts type shit", newContacts)
+
+                setContacts(newContacts)
+                
+            } else {
+                window.location.replace("/login")
+            }
+        })
+
+
+
+        
+    }, [props.contacts])
+
+
+
+    const sendMsg = () => {
+        return new Promise(async(resolve) => {
+
+            const headers = {
+                method: "POST",
+                mode: "cors",
+                credentials: "include",
+                headers: {
+                  "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    message: messageText,
+                    receiver: contacts[activeContact].uuid,
+                })
+            } 
+            
+            const response = await fetch(endpoint + "/sendmessage", headers)
+            resolve(response.json())
+
+
+
+
+        })
+
+    }
 
 
     const sendMessage = () => {
@@ -84,28 +154,39 @@ export default function Messaging(props) {
         // send via ws
         
         if ((messageText.length > 0) && (messageText.length < 1000)) {
-            setMessages((prevMessages) => {
-                let newMessages = prevMessages
+            sendMsg().then((res) => {
+                if (res.code === "err") {
+                    // window.location.replace("/login")
+                } else if (res.code === "ok") {
+                    setMessages((prevMessages) => {
+                        let newMessages = prevMessages
+                        
+                            return [{
+                                sender: "me",
+                                receiver: contacts[activeContact].uuid,
+                                message: messageText,
+                                timestamp: Date.now()
+                            },...newMessages]
                 
-                    return [{
-                        uuid: "me",
-                        message: messageText,
-                        timestamp: Date.now()
-                    },...newMessages]
-        
-                
-                
-    
-    
-                
-    
+                        
+                        
+            
+            
+                        
+            
+                    })
+                    setMessageText("")
+                } else {
+                    // window.location.replace("/login")
+                }
             })
+            
+
         }
+    
         
-        setMessageText("")
-
     }
-
+    
     useEffect(() => {
         setMessages((prevMessages) => {
             let newMessages = prevMessages
@@ -121,22 +202,29 @@ export default function Messaging(props) {
     },[messages])
 
 
-    const [activeContact, setActiveContact] = useState(null)
+
+
+
+
+    
 
     return (
 
 
         <>
     
-            <div className="flex flex-row min-w-screen min-h-screen" data-theme="dark">
+            <div className="w-full h-screen" data-theme="dark">
 
                 {/* <LogNav /> */}
 
-                <div className="w-full  min-h-screen flex flex-row">
-                    <div className="w-2/6 flex-col flex gap-2 bg-base-200 h-full p-4">
+                <div className="w-full  min-h-screen flex flex-row h-full">
+                    <div className="w-2/6 flex-col flex gap-2 bg-base-200 p-4 h-full">
                         <p className="font-2 text-2xl font-bold">Contacts</p>
-                        {contacts.map((contact,i) => (
-                            <div className="p-4 bg-base-300 flex flex-row items-center justify-items-center gap-4 rounded-lg cursor-pointer hover:bg-base-100 select-none" key={i} onClick={(e) => {
+                        {(contacts !== undefined) && (
+                            contacts.map((contact,i) => (
+                            <div key={i}>
+                            {(contact.messages > 0) && (
+                                <div className="p-4  border-2 border-base-100 flex flex-row items-center justify-items-center gap-4 rounded-lg cursor-pointer hover:bg-base-100 select-none" key={i} onClick={(e) => {
                                 setActiveContact(i)
                             }}>
                                 <div className="avatar placeholder">
@@ -147,14 +235,59 @@ export default function Messaging(props) {
                                 </div>
                                 <div className="flex flex-col">
                                     <p className="font-1 text-lg font-semibold ">{contact.name}</p>   
-                                    <p className="font-1 font-bold">2+ messaging</p>
+                                    {(contact.messages === 0) && (
+                                        <p className="font-1 ">No messages</p>
+                                    )}
+                                    {((contact.messages > 0) && (contact.messages < 4)) && (
+                                        <p className="font-1 font-bold">{contact.messages}+ messages</p>
+                                    )}
+                                    
                                 </div>
                                 
                                 
                                 
                             </div>
 
-                        ))}
+                            )}
+                            {(contact.messages === 0) && (
+                                <div className="p-4 bg-base-300 flex flex-row items-center justify-items-center gap-4 rounded-lg cursor-pointer hover:bg-base-100 select-none" key={i} onClick={(e) => {
+                                setActiveContact(i)
+                            }}>
+                                <div className="avatar placeholder">
+                                    <div className="w-12 rounded-full bg-neutral ">
+                                    <p className="text-2xl font-2">{contact["name"].substring(0,1)}</p>
+                                    </div>
+                                    
+                                </div>
+                                <div className="flex flex-col">
+                                    <p className="font-1 text-lg font-semibold ">{contact.name}</p>   
+                                    {(contact.messages === 0) && (
+                                        <p className="font-1 ">No messages</p>
+                                    )}
+                                    {((contact.messages > 0) && (contact.messages < 4)) && (
+                                        <p className="font-1 font-bold">{contact.messages}+ messages</p>
+                                    )}
+                                    
+                                </div>
+                                
+                                
+                                
+                            </div>
+
+                            )}
+
+
+
+
+                            </div>
+                            
+
+
+                            
+
+                        ))
+                        )}
+                        
                         <div>
                       
 
@@ -199,7 +332,7 @@ export default function Messaging(props) {
                                     <div className="w-full flex flex-col gap-4 py-10 px-4 chat max-h-[80vh] overflow-y-auto flex-col-reverse">
                                         {messages.map((message,i) => (
                                             <div key={i} className="w-full">
-                                                {(message.uuid !== "me") && (
+                                                {(message.sender !== "me") && (
                                                     <div className="chat chat-start">
                                                     <div className="chat-header">
                                                     <p className="font-1">{new Date(message.timestamp).toLocaleDateString("en-US")}</p>
@@ -212,7 +345,7 @@ export default function Messaging(props) {
                                                     
                                         
                                                 )}
-                                                {(message.uuid === "me") && (
+                                                {(message.sender === "me") && (
                                                     <div className="chat chat-end">
                                                     <div className="chat-header">
                                                     <p className="font-1">{new Date(message.timestamp).toLocaleDateString("en-US")}</p>

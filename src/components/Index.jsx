@@ -65,17 +65,27 @@ export default function Index(props) {
 
         <div className="hero w-full min-h-[60vh] bg-base-200"  data-theme="forest">
 
+
             <div className="hero-content">
-                <div className="w-full h-full flex flex-col gap-2 p-2">
-                <p className="font-1 font-bold text-6xl">Connect to your <span className="p-4 bg-base-300 rounded-lg">dream college</span></p>
+                <div className="sm:grid sm:grid-cols-2 items-center justify-items-center gap-10">
+                <div className=" flex flex-col gap-2 p-2">
+                <p className="font-1 font-bold sm:text-6xl text-4xl">Connect to your</p>
+                <span className="p-4 sm:mt-0 bg-base-300 rounded-lg  sm:text-6xl text-4xl font-1 font-bold w-fit">dream college</span>
                 <p className="text-lg font-2 font-semibold">Over 100+ mentors from top universities</p>
-                <a href="/signup" className="btn  btn-outline btn-secondary w-fit">
-                    <p className="font-2 font-bold text-2xl">Sign up</p>
+                <a href="/signup" className="btn btn-secondary w-fit">
+                    <p className="font-1 font-bold text-2xl">Sign up</p>
                 
 
                 </a>
                 
                 </div>
+
+                <div className=" w-[500px] h-[500px] border-2 rounded-full sm:block hidden">
+                    <img className="rounded-full w-full h-full object-cover" src="https://i1.wp.com/theparentcue.org/wp-content/uploads/2019/08/GettyImages-489587887-scaled.jpg?fit=2560%2C1707&ssl=1" />
+                    
+                </div>
+                </div>
+                
                 
             </div>
 
@@ -89,7 +99,7 @@ export default function Index(props) {
 
         </div>
         <div className="mb-48 mt-40">
-            <p className="font-2 font-bold text-4xl text-center my-10">Why Choose Incepta?</p>
+            <p className="font-2 font-bold text-4xl text-center my-10">Why Choose incepta?</p>
         
         
             <div className="w-4/6 text-center mx-auto p-4 rounded-lg bg-base-200 my-10">
