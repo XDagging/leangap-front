@@ -2,12 +2,14 @@ import React, {useState, useContext, useEffect} from "react";
 import {UserContext, MenuContext} from "./Contexts";
 
 
-const endpoint = "https://localhost:300"
+const endpoint =  "https://localhost:443"
 export default function Dashboard(props) {
 
     const users = useContext(UserContext);
     const menu = useContext(MenuContext);
-    
+
+
+
     const [students, setStudents] = useState([])
 
 
@@ -78,12 +80,28 @@ export default function Dashboard(props) {
         })
     }
 
-    const processMatch = (uuid,i) => {
+    const processMatch = (uuid,i, name) => {
         removeCard(i)
         callMatch(uuid).then((res) => {
             if (res.code === "err") {
                 // window.location.replace("/login")
             } else if (res.code === "ok") {
+
+
+                props.setContacts((prevContacts) => {
+                    return [...prevContacts, {
+                        name: name,
+                        uuid: uuid
+                    }]
+
+                })
+                               
+
+
+
+
+
+
                 
                 // 
             } else {
@@ -153,7 +171,7 @@ export default function Dashboard(props) {
 
         <>
           <div className="p-5 space-y-5 w-full h-full min-h-screen" data-theme="forest">
-                    <h1 className="font-1 text-4xl font-bold">Hello, {users.name}</h1>
+                    <h1 className="font-1 text-4xl font-bold lg:text-left text-center">Hello, {users.name}</h1>
 
                     <div className="bg-base-200 w-full p-6 rounded-lg flex flex-col space-y-5">
                         <div className="flex flex-row space-x-2 content-center items-center">
@@ -163,7 +181,7 @@ export default function Dashboard(props) {
 
 
                         {(students.length > 0) && (
-                            <div className="grid grid-cols-3 gap-2 justify-between p-2">
+                            <div className="lg:grid lg:grid-cols-3 flex flex-col gap-2 justify-between p-2">
                             {students.map((student, i) => (
                                 <div className="card bg-base-100 shadow-xl" key={i}>
                                     <div className="card-body">
@@ -182,7 +200,7 @@ export default function Dashboard(props) {
                                              
                                         </div>                                     
                                         <div className="card-actions grid grid-cols-2 justify-stretch p-2 font-1">
-                                            <button className="btn btn-accent gap-2" onClick={() => processMatch(student.uuid, i)}>Accept <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-6"> <path fillRule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm13.36-1.814a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z" clipRule="evenodd" /> </svg> </button>
+                                            <button className="btn btn-accent gap-2" onClick={() => processMatch(student.uuid, i, student.name)}>Accept <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-6"> <path fillRule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm13.36-1.814a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z" clipRule="evenodd" /> </svg> </button>
                                             <button className="btn btn-second btn-outline" onClick={() => processReject(student.uuid, i)} >Decline</button>
                                         </div>
                                     </div>

@@ -9,53 +9,6 @@ let currentScroll = 0;
 
 export default function Index(props) {
     
-    
-
-
-
-    const [elements, setElements] = useState([
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Harvard_University_logo.svg/600px-Harvard_University_logo.svg.png",
-        "https://www.logo.wine/a/logo/University_of_California%2C_Berkeley/University_of_California%2C_Berkeley-Logo.wine.svg",
-        "https://cdn.prod.website-files.com/5e90432bd516144ac7ddcb90/5e997e08531feacf20031197_mit.svg",
-        "https://cdn.prod.website-files.com/5e90432bd516144ac7ddcb90/5e997e09a5b30c5830a69924_georgia.svg",
-        "https://cdn.prod.website-files.com/5e90432bd516144ac7ddcb90/5e997e095101bd1692a70bcd_yale.svg",
-        "https://cdn.prod.website-files.com/5e90432bd516144ac7ddcb90/5e997e095b19974829e972fe_cmu.svg",
-        "https://cdn.prod.website-files.com/5e90432bd516144ac7ddcb90/5e997e0910343e6436e8cb50_cornell.svg",
-        "https://cdn.prod.website-files.com/5e90432bd516144ac7ddcb90/5e997e09a5b30c5830a69924_georgia.svg",
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Harvard_University_logo.svg/600px-Harvard_University_logo.svg.png",
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Harvard_University_logo.svg/600px-Harvard_University_logo.svg.png"])
-    const [counter, setCounter] = useState(0);
-
-    
-
-    useEffect(() => {
-        const carouselElement = document.getElementById("carousel");
-        let carouselWidth = carouselElement.scrollWidth - carouselElement.clientWidth;
-        
-        const scrollCarousel = () => {
-            currentScroll += 10; // Adjust the scroll speed as needed
-            console.log("current scroll" , currentScroll)
-            console.log("carousel scrollwidth",carouselElement.scrollWidth)
-        console.log("carousel client", carouselElement.clientWidth)
-            if (currentScroll >= carouselWidth) {
-                console.log("current scroll reset!")
-                currentScroll = 11; // Reset the scroll position
-                carouselElement.scrollTo({ left: 0, behavior: 'auto' });
-            } else {
-                carouselElement.scrollTo({ left: currentScroll + carouselElement.clientWidth, behavior: 'smooth' });
-            }
-        };
-
-        interval = setInterval(scrollCarousel, 50);
-
-        return () => {
-            clearInterval(interval);
-        };
-    }, []);
-    
-
-
-
     return (
 
 
@@ -64,127 +17,178 @@ export default function Index(props) {
         <Navbar />
 
         <div className="hero w-full min-h-[60vh] bg-base-200"  data-theme="forest">
-
-
             <div className="hero-content">
-                <div className="sm:grid sm:grid-cols-2 items-center justify-items-center gap-10">
-                <div className=" flex flex-col gap-2 p-2">
-                <p className="font-1 font-bold sm:text-6xl text-4xl">Connect to your</p>
-                <span className="p-4 sm:mt-0 bg-base-300 rounded-lg  sm:text-6xl text-4xl font-1 font-bold w-fit">dream college</span>
-                <p className="text-lg font-2 font-semibold">Over 100+ mentors from top universities</p>
-                <a href="/signup" className="btn btn-secondary w-fit">
-                    <p className="font-1 font-bold text-2xl">Sign up</p>
-                
-
-                </a>
-                
+                <div className="sm:grid sm:grid-cols-2 items-center justify-items-center gap-10 space-x-10">
+                    <div className=" flex flex-col gap-5 p-3">
+                        <div className="flex flex-col gap-6">
+                            <p className="font-1 font-bold sm:text-6xl text-5xl leading-10">Connect with Students in Your Dream College</p>
+                        </div>
+                        <div className="mt-6">
+                            <p className="text-2xl font-2 font-semibold leading-10">Message with students to learn about campus life, build connections, and discover your perfect college match.</p>
+                        </div>
+                        <a href="/signup" className="btn btn-accent p-30 rounded-lg w-5/6 h-20 mt-3">
+                            <p className="font-1 font-bold text-2xl">Connect Now</p>
+                        </a>
+                    </div>
+                    <div className="w-[550px] h-[500px] lg:block hidden">
+                        <img className="w-full h-full object-cover rounded-2xl outline outline-4 outline-offset-4 outline-accent" src="https://inceptaimg.s3.amazonaws.com/leangap4.png" />
+                    </div>
                 </div>
-
-                <div className=" w-[500px] h-[500px] border-2 rounded-full sm:block hidden">
-                    <img className="rounded-full w-full h-full object-cover" src="https://i1.wp.com/theparentcue.org/wp-content/uploads/2019/08/GettyImages-489587887-scaled.jpg?fit=2560%2C1707&ssl=1" />
-                    
-                </div>
-                </div>
-                
-                
             </div>
-
         </div>
+
         <div className="relative">
-        <div class="custom-shape-divider-top-1721341747">
-    <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
-        <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
-    </svg>
-</div>
-
+            <div class="custom-shape-divider-top-1721341747">
+                <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                    <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
+                </svg>
+            </div>
         </div>
-        <div className="mb-48 mt-40">
-            <p className="font-2 font-bold text-4xl text-center my-10">Why Choose incepta?</p>
-        
-        
-            <div className="w-4/6 text-center mx-auto p-4 rounded-lg bg-base-200 my-10">
-            
 
+        <div className="mb-20 mt-40" data-theme='dark'>
+            <p className="font-1 font-bold text-6xl text-center my-10">Why Choose Incepta?</p>
 
-            <div className="grid grid-cols-2 items-center justify-items-center p-4 rounded-lg w-full">
-           
-                <div className="flex flex-col gap-4 w-5/6">
-                    <div>
-                    <p className="font-2 font-bold">1000+ students</p>
-                    </div>
-
-                    <div>
-                        <p className="font-1 font-bold text-3xl">For Ambitious Highschoolers</p>
-                    </div>
-                    <div className="mt-8">
-                        <p className="font-2 font-semibold">Students are using our platform to secure<br/> seats at top schools.</p>
-                    </div>
-                    
-                    
-                    
-                   
-
-
-                       
+            <div className="grid lg:grid-cols-3 grid-cols-1 justify-stretch lg:w-5/6 w-full bg-base-300 rounded-lg mx-auto my-10 p-7 gap-8">
+                <div className="flex flex-col p-10 content-center items-center gap-5 bg-base-100 rounded-xl">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-48">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z" />
+                    </svg>
+                    <p className="font-2 text-4xl text-center font-bold">Connect Fast</p>
+                    <p className="font-2 text-3xl text-center">Match with a college student, get accepted, and start chatting. <span className="font-bold">Just two clicks.</span></p>
                 </div>
-                                     
-            
-                <div className="flex flex-col gap-4 w-5/6">
-                    <div>
-                    <p className="font-2 font-bold">300+ college students</p>
-                    </div>
-
-                    <div>
-                        <p className="font-1 font-bold text-3xl">For college students</p>
-                    </div>
-                    <div className="mt-8">
-                        <p className="font-2 font-semibold">College students earn money per conversation<br/>or engagement</p>
-                    </div>
-                    
-                    
-                    
-                   
-
-
-                       
+                <div className="flex flex-col p-10 content-center items-center gap-5 bg-base-100 rounded-xl">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-48">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-7.007 11.55A5.981 5.981 0 0 0 6.75 15.75v-1.5" />
+                    </svg>
+                    <p className="font-2 text-4xl text-center font-bold">Variety of Universities</p>
+                    <p className="font-2 text-3xl text-center">Select from a wide range of universities and colleges. <span className="font-bold">Pick what's best for you.</span></p>
+                </div>
+                <div className="flex flex-col p-10 content-center items-center gap-5 bg-base-100 rounded-xl">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-48">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M15.182 15.182a4.5 4.5 0 0 1-6.364 0M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0ZM9.75 9.75c0 .414-.168.75-.375.75S9 10.164 9 9.75 9.168 9 9.375 9s.375.336.375.75Zm-.375 0h.008v.015h-.008V9.75Zm5.625 0c0 .414-.168.75-.375.75s-.375-.336-.375-.75.168-.75.375-.75.375.336.375.75Zm-.375 0h.008v.015h-.008V9.75Z" />
+                    </svg>
+                    <p className="font-2 text-4xl text-center font-bold">Ease of Use</p>
+                    <p className="font-2 text-3xl text-center">Communicate with an easy-to-use message interface, <span className="font-bold">built for your convenience.</span></p>
                 </div>
             </div>
-            
-            
-        </div>
         </div>
 
-        {/* <div className="relative">
+        <div className="bg-base-100 min-h-[60vh] justify-stretch content-center">
+            <p className="text-5xl font-1 font-bold text-center mt-20">Testimonials:</p>
 
-        <div class="custom-shape-divider-bottom-1721342335">
-    <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
-        <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
-    </svg>
-</div>
-            
-        </div> */}
-
-        <div className=" py-10">
-            
-                <div className="bg-base-300 p-10">
-                <p className="font-1 text-3xl font-bold p-5 text-center mb-10">Our college connections</p>
-                <div className="carousel carousel-end max-h-[10vh] p-5 w-full gap-24" id="carousel">
-        {elements.map((element, i) => (
-            <div className="carousel-item w-80 " key={i}>
-                <img src={element} alt="Drink" />
-            </div>
-
-        ))}
- 
-  
-</div>
-
+            <div className="grid lg:grid-cols-3 grid-cols-1 items-center justify-stretch p-7 mb-20 font-2">
+                <div className="card bg-base-200 rounded-xl lg:p-10 m-4 outline outline-4 outline-accent">
+                    <div className="avatar justify-start lg:mr-5 p-5">
+                        <div className="lg:w-64 w-32 rounded-full outline outline-offset-2 outline-gray-300 outline-4">
+                            <img src="https://inceptaimg.s3.amazonaws.com/leangap1.jpg" />
+                        </div>
+                    </div>
+                    <div className="card-body flex flex-col gap-5">
+                        <div>
+                            <h2 className="card-title text-4xl">Owen</h2>
+                            <div className="badge badge-primary font-1 badge-lg badge-outline">12th Grade</div>
+                        </div>
+                        
+                        <p className="text-start text-2xl">"Incepta made my college decision easier. Chatting with current students helped me see beyond the brochures and understand what life is really like on campus."</p>
+                    </div>
                 </div>
+                <div className="card bg-base-200 rounded-xl lg:p-10 m-4 outline outline-4 outline-accent">
+                    <div className="avatar justify-start lg:mr-5 p-5">
+                        <div className="lg:w-64 w-32 rounded-full outline outline-offset-2 outline-gray-300 outline-4">
+                            <img src="https://inceptaimg.s3.amazonaws.com/leangap2.jpg" />
+                        </div>
+                    </div>
+                    <div className="card-body flex flex-col gap-5">
+                        <div>
+                            <h2 className="card-title text-4xl">Syaon</h2>
+                            <div className="badge badge-accent font-1 badge-lg badge-outline">11th Grade</div>
+                        </div>
+                        
+                        <p className="text-start text-2xl">"Using Incepta was a breeze! I quickly connected with a friendly college mentor who gave me personalized advice on navigating campus life. I feel much more prepared now."</p>
+                    </div>
+                </div>
+                <div className="card bg-base-200 rounded-xl lg:p-10 m-4 outline outline-4 outline-accent">
+                    <div className="avatar justify-start lg:mr-5 p-5">
+                        <div className="lg:w-64 w-32 rounded-full outline outline-offset-2 outline-gray-300 outline-4">
+                            <img src="https://inceptaimg.s3.amazonaws.com/leangap3.jpg" />
+                        </div>
+                    </div>
+                    <div className="card-body flex flex-col gap-5">
+                        <div>
+                        <h2 className="card-title text-4xl">Nakul</h2>
+                        <div className="badge badge-secondary font-1 badge-lg badge-outline">12th Grade</div>
+                        </div>
+                       
+                        <p className="text-start text-2xl">"I got to pick mentors based on their expertise. Connecting with college students who shared their experiences helped me navigate my university choices."</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div className="bg-base-300 w-full min-h-[40vh] gap-4 lg:p-40">
+            <div className="grid w-full lg:grid-cols-2 grid-cols-1 lg:items-center lg:justify-items-center gap-10">
+                <div className=" flex flex-col gap-5 p-20 lg:ml-20">
+                    <div className="flex flex-col gap-6">
+                        <p className="font-1 font-bold lg:text-6xl text-4xl leading-10">Choose the college that's right for you</p>
+                    </div>
+                    <div className="mt-6">
+                        <p className="lg:text-2xl text-xl font-2 font-semibold leading-10">Start connecting with the students from your dream university today.</p>
+                    </div>
+                    <a href="/signup" className="btn btn-accent lg:p-30 rounded-lg w-5/6 lg:h-20 btn-lg mt-3">
+                        <p className="font-1 font-bold text-lg lg:text-2xl">Connect Now</p>
+                    </a>
+                </div>
+                <div className="lg:flex lg:flex-row gap-10 justify-evenly items-center hidden">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-96 stroke-accent">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.332A48.36 48.36 0 0 0 12 9.75c-2.551 0-5.056.2-7.5.582V21M3 21h18M12 6.75h.008v.008H12V6.75Z" />
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-96 lg:block hidden stroke-accent">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.332A48.36 48.36 0 0 0 12 9.75c-2.551 0-5.056.2-7.5.582V21M3 21h18M12 6.75h.008v.008H12V6.75Z" />
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <div className="bg-base-100 justify-center justify-items-center flex flex-col gap-5">
+            <p className="text-6xl font-1 font-bold underline text-center mt-20">FAQ:</p>
+
                 
-</div>
-        
-        
-
+            <div className="collapse collapse-arrow bg-base-200 p-4 m-4 lg:w-2/3 w-full mx-auto outline outline-4 outline-gray-600 outline-offset-2">
+                <input type="radio" name="my-accordion-1"/>
+                <div className="collapse-title text-3xl font-medium">Is it free for college students or high school students?</div>
+                <div className="collapse-content">
+                    <p className="text-2xl">College students can sign up for free on the platform, but high school students must make at least one payment before joining the platform.</p>
+                </div>
+            </div>
+            <div className="collapse collapse-arrow bg-base-200 p-4 m-4 lg:w-2/3 w-full mx-auto outline outline-4 outline-gray-600 outline-offset-2">
+                <input type="radio" name="my-accordion-1" />
+                <div className="collapse-title text-3xl font-medium">How is quality of college mentors guaranteed for high school students?</div>
+                <div className="collapse-content">
+                    <p className="text-2xl">College students who want to be in the program are vetted through an interview process.</p>
+                </div>
+            </div>
+            <div className="collapse collapse-arrow bg-base-200 p-4 m-4 lg:w-2/3 w-full mx-auto outline outline-4 outline-gray-600 outline-offset-2">
+                <input type="radio" name="my-accordion-1" />
+                <div className="collapse-title text-3xl font-medium">How do conversations work?</div>
+                <div className="collapse-content">
+                    <p className="text-2xl">Each conversation costs a certain amount of credits, where the lowest amount of credits for a conversation is 85. You can buy credits on the pricing page.</p>
+                </div>
+            </div>
+            <div className="collapse collapse-arrow bg-base-200 p-4 m-4 lg:w-2/3 w-full mx-auto outline outline-4 outline-gray-600 outline-offset-2">
+                <input type="radio" name="my-accordion-1" />
+                <div className="collapse-title text-3xl font-medium">How do college students get paid?</div>
+                <div className="collapse-content">
+                    <p className="text-2xl">Every conversation that a college student engages in pays a base rate of $1.50, with an addition of $1.00 given a rating system (every star the high school student gives is $0.20). After getting $50 or more across all of their conversations, they can cash out.</p>
+                </div>
+            </div>
+            <div className="collapse collapse-arrow bg-base-200 p-4 m-4 lg:w-2/3 w-full mx-auto outline outline-4 outline-gray-600 outline-offset-2 mb-20">
+                <input type="radio" name="my-accordion-1" />
+                <div className="collapse-title text-3xl font-medium">Is there a free trial?</div>
+                <div className="collapse-content">
+                    <p className="text-2xl">There is not a free trial. After buying credits, you can begin to use the website.</p>
+                </div>
+            </div>
+        </div>
         
         <Footer />
         

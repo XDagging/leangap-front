@@ -16,13 +16,17 @@ export default function LogNav(props) {
 
     return (
 
-        <div className="p-4 bg-base-300 min-w-[20vw] h-screen sticky top-0 left-0" data-theme="forest">
+        <div className="p-4 bg-base-300 min-w-[25vw] h-screen sticky top-0 left-0" data-theme="forest">
             <div className="w-full h-full relative">
-            <div className="absolute bottom-0 left-0 w-full p-2 py-10 bg-base-100">
+            <div className="absolute bottom-0 left-0 w-full p-2 py-5 bg-base-100">
                 {(user.student) && (
-                    <>
+                    <div className="">
+                    <div>
+                        <a href="/" className="btn btn-ghost text-2xl font-1 font-bold">Incepta</a>
+                    </div>
+                    <div className="ml-4">
                     <div className="tooltip tooltip-right font-2">
-                <p className="font-1 font-bold text-lg">Tokens Remaining: <span className="p-2 rounded-full bg-base-300 ml-2">{user.tokens}</span></p>
+                        <p className="font-1 font-bold text-lg">Tokens Remaining: <span className="p-2 rounded-full bg-base-300 ml-2">{user.tokens}</span></p>
                 
 
                 </div>
@@ -34,7 +38,12 @@ export default function LogNav(props) {
                         <path fillRule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm11.378-3.917c-.89-.777-2.366-.777-3.255 0a.75.75 0 0 1-.988-1.129c1.454-1.272 3.776-1.272 5.23 0 1.513 1.324 1.513 3.518 0 4.842a3.75 3.75 0 0 1-.837.552c-.676.328-1.028.774-1.028 1.152v.75a.75.75 0 0 1-1.5 0v-.75c0-1.279 1.06-2.107 1.875-2.502.182-.088.351-.199.503-.331.83-.727.83-1.857 0-2.584ZM12 18a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z" clipRule="evenodd" />
                     </svg>
                 </div>
-                    </>
+
+
+                    </div>
+                    
+                    
+                    </div>
                 )}
                 {(!user.student) && (
                     <>
@@ -51,7 +60,7 @@ export default function LogNav(props) {
             {(user.name !== null) && (
                 <div className="bg-base-100 p-4 rounded-lg">
             {(user.student) && (
-                <div className="avatar placeholder">
+                <div onClick={() => changeNav("Settings")} className="avatar select-none cursor-pointer placeholder">
     <div className="bg-base-300 w-16 rounded-full">
         <p className="text-3xl font-2 font-bold">{user.name.substring(0,1)}</p>
     </div>
@@ -59,7 +68,7 @@ export default function LogNav(props) {
 </div>
             )}
             {(!user.student) && (
-                <div className="avatar w-24 h-24 rounded-full">
+                <div className="avatar w-24 h-24 rounded-full" onClick={() => changeNav("Settings")}>
                     <img alt="profilePic" src={"https://inceptaimg.s3.amazonaws.com/" + user.img} className="w-full h-full rounded-full object-cover" />
 
 

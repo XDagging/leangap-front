@@ -1,44 +1,184 @@
-import React, {useContext} from "react"
+import React, {useContext, useState, useEffect} from "react"
 import LogNav from "./LogNav"
 import { UserContext } from "./Contexts"
-
-
-let grade;
+import FormError from "./FormError"
+import Loading from "./Loading"
+const endpoint =  "https://localhost:443"
 export default function Settings(props) {
-    const users = useContext(UserContext)
 
-    if (grade === "9") {
-        grade = "Freshman"
-    } else if (grade === "10") {
-        grade = "Sophomore"
-    } else if (grade === "11") {
-        grade = "Junior"
-    } else {
-        grade = "Senior"
+
+    
+
+
+    const users = useContext(UserContext)
+    const [grade,setGrade] = useState(users.grade)
+    const [name, setName] = useState(users.name)
+    const [bio, setBio] = useState(users.bio)
+    const [loading, setLoading] = useState(false)
+    const [errorMessage, setErrorMessage] = useState("")
+    const [bioLength, setBioLength] = useState(0)
+
+
+   
+
+
+    const processForm = () => {
+        return new Promise(async(resolve) => {
+            let response
+            if (!users.student) {
+                response = await fetch(endpoint + "/updateProfile", {
+                    method: "POST",
+                    mode: "cors",
+                    credentials: "include",
+                    headers: {
+                      "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        name: name,
+                        grade: grade,
+                        bio: bio
+                    })
+                })
+            } else {
+                response = await fetch(endpoint + "/updateProfile", {
+                    method: "POST",
+                    mode: "cors",
+                    credentials: "include",
+                    headers: {
+                      "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        name: name,
+                        grade: grade,
+                    })
+                })
+            }
+            
+
+            
+
+            resolve(response.json())
+        })
     }
 
-    return (
 
-        <div className=" p-5 bg-base-200 w-full" data-theme="forest">
+    
+
+
+    useEffect(() => {
+        if (bio !== undefined) {
+            setBioLength(bio.length)
+        }
+
+
+    },[bio])
+
+
+    const submitForm = () => {
+
+        let passedForm = true;
+        setLoading(true)
+        if (!users.student) {
+            if ((bio.length < 20) || (bio.length > 150)) {
+                passedForm = false
+                setErrorMessage("Bio must be between 20 and 150 characters"  + "|" + Math.floor(Math.random()*100))
+            } 
+        }
+        if (name.length < 1) {
+            passedForm = false
+            setErrorMessage("Enter your name" + "|" + Math.floor(Math.random()*100))
+        } else if (name.length > 40) {
+            passedForm = false
+            setErrorMessage("Name is too long" + "|" + Math.floor(Math.random()*100))
+        }
+
+        if (passedForm) {
+            processForm().then((res) => {
+                setLoading(false)
+                if (res.code === "err") {
+                    console.log(res)
+                    setErrorMessage("Something went wrong" + "|" + Math.floor(Math.random()*100))
+                } else if (res.code === "ok") {
+                    
+                    setErrorMessage("Your profile has updated" + "|" + Math.floor(Math.random()*100))
+
+
+                } else {
+                    console.log(res)
+                    setErrorMessage("Something went wrong" + "|" + Math.floor(Math.random()*100))
+                }
+            })
+        } else {
+            setLoading(false)
+        }
+
+
+
+
+    }
+
+
+
+
+   
+    
+
+    return (
+        <>
+        {(loading) && (
+            <Loading />
+        )}
+        <div className=" lg:p-5 p-2 bg-base-200 w-full" data-theme="forest">
             <p className="font-2 font-bold text-2xl">Settings</p>
             <div className="p-4 rounded-lg bg-base-300 mt-2">
                 <p className="font-1 font-semibold">Basic Info:</p>
-                <div className="flex flex-col gap-2 mt-3">
-                    <div className="p-3 bg-base-200 w-fit rounded-lg">
-                        <p className="font-2 ml-2 font-bold text-lg">Name:</p>
-                        <input disabled className="input input-disabled font-1 font-semibold"  value={users.name} />
-                    </div>
-                    <div className="p-3 bg-base-200 w-fit rounded-lg">
-                        <p className="font-2 ml-2 font-bold text-lg">Email:</p>
-                        <input disabled className="input input-disabled font-1 font-semibold"  value={users.email} />
-                    </div>
-                    <div className="p-3 bg-base-200 w-fit rounded-lg">
-                        <p className="font-2 ml-2 font-bold text-lg">Grade:</p>
-                        <input disabled className="input input-disabled font-1 font-semibold"  value={grade} />
-                    </div>
+                <div className="grid grid-cols-2 w-fit gap-2 mt-3 relative">
+                        <FormError error={errorMessage} />
+                        <div className="flex flex-col gap-2">
+                        <div className="p-3 bg-base-200 rounded-lg">
+                            <p className="font-2 ml-2 font-bold text-lg">Name:</p>
+                            <input value={name} className="input input-primary font-1 font-semibold" placeholder="Name" onChange={(e) => setName(e.target.value)} />
+                        </div>
+                        <div className="p-3 bg-base-200 rounded-lg w-full">
+                            <p className="font-2 ml-2 font-bold text-lg">Grade:</p>
+                            <select className="select select-primary font-1 font-semibold" value={grade} onChange={(e) => setGrade(e.target.value)}>
+                                <option value="9">Freshman</option>
+                                <option value="10">Sophomore</option>
+                                <option value="11">Junior</option>
+                                <option value="12">Senior</option>
+                            </select>
+                        </div>
+                        <div className="p-3 bg-base-200 rounded-lg">
+                            <p className="font-2 ml-2 font-bold text-lg">Email:</p>
+                            <input disabled className="input input-disabled font-1 font-semibold"  value={users.email} />
+                        </div>
+                        </div>
 
+
+                {(!users.student) && (
+                    <div className="p-3 bg-base-100 w-fit rounded-lg font-1">
+                        <p className="font-bold text-lg ml-2 mb-1">Bio:</p>
+                        <div className="relative select-none ">
+                            <div className="absolute bottom-0 right-0 p-2 bg-base-300 text-sm rounded-full">
+                                {bioLength}/150
+
+                            </div>
+
+                            <textarea maxLength="150" className="textarea textarea-secondary font-semibold textarea-lg" onChange={(e) => setBio(e.target.value)} placeholder="Write your bio here..." value={bio} />
+                        </div>
+                        
+                    </div>
+                )}
+                <div className="col-span-2">
+                    <div className="btn btn-secondary w-full font-1 font-semibold text-lg" onClick={submitForm}>
+                        <p>Change Profile</p>
+
+                    </div>
 
                 </div>
+
+                </div>
+                
 
             </div>
             {(!users.student) && (
@@ -47,8 +187,8 @@ export default function Settings(props) {
                 <p className="font-1 font-semibold text-xl">Payout Info:</p>
 
 
-                <div className="mt-2 flex flex-row p-10 gap-2 ">
-                    <div className="bg-base-100 w-full p-8 rounded-lg">
+                <div className="mt-2 flex lg:flex-row flex-col lg:p-10 gap-2 ">
+                    <div className="bg-base-100 w-full lg:p-8 rounded-lg p-2">
                         <p className="font-2 text-lg font-semibold">Amount Earned</p>
                         <div className="p-4 bg-base-300 rounded-lg mb-2">
                         <p className="font-1 p-2 bg-neutral w-fit rounded-lg font-bold text-lg mb-2">${users.amountEarned.toFixed(2)}</p>
@@ -78,7 +218,7 @@ export default function Settings(props) {
                         
 
                     </div>
-                    <div className="bg-base-100 w-full p-8 rounded-lg">
+                    <div className="bg-base-100 w-full p-8 rounded-lg hidden">
                         <p className="font-2 text-lg font-semibold">Account Termination</p>
                         <p className="font-1 text-sm">This action is <b>permanent </b>and is <b>irreversible</b></p>
                         <div className="btn btn-error font-1 btn-outline mt-2">
@@ -104,5 +244,9 @@ export default function Settings(props) {
 
 
         </div>
+    
+        </>
+
     )
+     
 }

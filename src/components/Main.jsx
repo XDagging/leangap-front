@@ -6,8 +6,11 @@ import Loading from "./Loading"
 import Messaging from "./Messaging"
 import Settings from "./Settings"
 import Pricing from "./Pricing"
-const endpoint = "https://localhost:300"
+import { FaBarsStaggered } from "react-icons/fa6";
+const endpoint = "https://localhost:443"
 export default function Main(props){
+
+    const [openNav, setOpenNav] = useState(false)    
     const [contacts, setContacts] = useState([])
     const [search, setSearch] = useState("")
     const [user, setUser] = useState({
@@ -22,7 +25,7 @@ export default function Main(props){
     const callSearch = () => {
         return new Promise (async(resolve) => {
             const headers = {
-                method: "POST",
+                method: "POST", 
                 mode: "cors",
                 credentials: "include",
                 headers: {
@@ -38,6 +41,8 @@ export default function Main(props){
         })
     }
 
+
+    
 
     const processSearch = () => {
         
@@ -68,6 +73,10 @@ export default function Main(props){
     const [matchSelected, setMatchSelected] = useState(false)
     const [schoolOpen, setSchoolOpen] = useState(null)
 
+    useEffect(() => {
+        setOpenNav(false)
+        
+    }, [currentMenu])
 
 
 
@@ -81,28 +90,7 @@ export default function Main(props){
     const [loading, setLoading] = useState(false)
 
 
-    const [topSchool, setTopSchool] = useState([
-        {
-            name: "Harvard",
-            // img: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Harvard_University_logo.svg/600px-Harvard_University_logo.svg.png"
-        },
-        {
-            name: "Stanford",
-            // img: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Harvard_University_logo.svg/600px-Harvard_University_logo.svg.png"
-        },
-        {
-            name: "MIT",
-            // img: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Harvard_University_logo.svg/600px-Harvard_University_logo.svg.png"
-        },
-        {
-            name: "UMD",
-            // img: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Harvard_University_logo.svg/600px-Harvard_University_logo.svg.png"
-        },
-        {
-            name: "HBA",
-            // img: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Harvard_University_logo.svg/600px-Harvard_University_logo.svg.png"
-        },
-    ])
+    const [topSchool, setTopSchool] = useState([])
 
    
 
@@ -265,17 +253,14 @@ export default function Main(props){
         callStudent(i, search).then((res) => {
             console.log(res)
             if (res.code === "err") {
-                window.location.replace("/login")
+                // window.location.replace("/login")
             } else if (res.code === "ok") {
-                let newStudents =[ ]
+                let newStudents = []
                 
                 res.message.map((person) => {
                     let college
                     if (search === false) {
-                       
-                        college = topSchool[i].name
-                       
-                        
+                        college = topSchool[i].name                  
                     } else {
                         college = i
                        
@@ -310,6 +295,33 @@ export default function Main(props){
         })
     }
 
+
+    const callList = () => {
+        return new Promise(async(resolve) => {
+        
+
+            const response = await fetch(endpoint + "/getschools",  {
+                method: "GET",
+                mode: "cors",
+                credentials: "include",
+                headers: {
+                  "Content-Type": "application/json"
+                }
+            })
+
+
+            resolve(response.json())
+
+
+        })
+    }
+
+
+
+
+
+
+    
     
 
     const callGetUser = () => {
@@ -331,23 +343,55 @@ export default function Main(props){
     
 
    
+
+    
+
     useEffect(() => {
         async function doEverything() {
             
             setLoading(true)
             await callGetUser().then((res) => {
             if (res.code === "err") {
+                console.log("this error occured", )
+                setLoading(false)
                 window.location.replace("/login")
             } else if (res.code === "ok") {
-                setUser(res.message)
-                setContacts(res.message["contacts"])
-                setLoading(false)
+                if ((res.message.student) && (res.message.tokens === 0)) {
+                    // window.location.replace("/pricing")
+                    setLoading(false)
+                    setUser(res.message)
+                    setContacts(res.message["contacts"])
+                } else {
+                    setUser(res.message)
+                    setContacts(res.message["contacts"])
+                    setLoading(false)
+                }
+                
 
             } else {
-                window.location.replace("/login")
+
+                // window.location.replace("/login")
             }
 
         })
+
+
+            callList().then((res) => {
+                if (res.code === "err") {
+                    // window.location.replace("/login")
+                } else if (res.code === "ok") {
+                   
+
+                    setTopSchool(res.message)
+                    
+                } else {
+                    // window.location.replace("/login")
+                }
+            })
+
+
+        
+
 
 
         
@@ -371,8 +415,24 @@ export default function Main(props){
 
             
             
-            <div className="flex flex-row" data-theme="light">
-                <LogNav />
+            <div className="flex flex-row relative" data-theme="light">
+                <div className="lg:block hidden">
+                    <LogNav />
+                </div>
+                
+                {openNav ? 
+                <div className="w-full">
+                <LogNav /> 
+                </div>
+               
+                : 
+                    <>
+                    <div className="bottom-2 left-2 fixed lg:hidden block p-4 rounded-lg bg-base-200 btn z-50" onClick={() => {
+                    setOpenNav((prevNav) => !prevNav)
+                }}>
+                    <FaBarsStaggered className="size-4" />
+                </div>
+                
                 {(loading) && (
                     <Loading />
                 )}
@@ -396,16 +456,16 @@ export default function Main(props){
                             </div>
                             <div>
 
-                            <div className="bg-base-300 w-5/6 mx-auto rounded-lg mb-2">
+                            {/* <div className="bg-base-300 w-5/6 mx-auto rounded-lg mb-2">
                              <p className="p-4 font-2 text-3xl font-bold">Students:</p>
-                            </div>
+                            </div> */}
                             {((studentList !== undefined) && (studentList.length === 0)) && (
                                 <div className="text-center p-5 text-3xl w-fit mx-auto rounded-lg mt-24 font-1 font-bold">
                                     <p>No students found</p>
                                 </div>
                             )}
                             
-                            <div className="grid grid-cols-3 w-full h-full gap-4 p-4 overflow-y-auto max-h-[80vh]">
+                            <div className="flex flex-col lg:grid lg:grid-cols-3 w-full h-full gap-4 p-4 overflow-y-auto max-h-[80vh]">
                             {((studentList !== undefined) && (studentList.length > 0)) && (
                                 studentList.map((student, i) => (
                                 
@@ -416,7 +476,7 @@ export default function Main(props){
                                             <div className="p-2">
                                                 <p className="font-1 font-bold text-2xl">{student.name}</p>
                                                 
-                                                <div className="flex flex-row gap-2">
+                                                <div className="flex flex-row gap-2 flex-wrap">
                                                 {student.major.split(",").map((major,i) => (
                                                     <p key={i} className="font-1 px-4 py-2 rounded-full font-bold w-fit bg-base-300">{major}</p>    
                                                 ))}
@@ -435,7 +495,10 @@ export default function Main(props){
                                             
                                             {(!student.match) && (
                                                 <div className="btn btn-secondary font-2 font-bold text-lg" onClick={() => {
-                                                setMatchSelected(true)
+
+
+                                                if (user.tokens > 0) {
+                                                    setMatchSelected(true)
                                                 setStudentList((prevList) => {
                                                     let newList = prevList
                                             
@@ -446,6 +509,10 @@ export default function Main(props){
 
 
                                                 processMatch(student.uuid)
+                                                } else {
+                                                    setCurrentMenu("Pricing")
+                                                }
+                                                
 
                                             }}>
                                             
@@ -507,17 +574,17 @@ export default function Main(props){
 
 
                                     </dialog>
-                                    <img src={"https://inceptaimg.s3.us-east-1.amazonaws.com/"+student.img} className="h-40 mx-auto w-full object-cover rounded-lg" />
+                                    <img src={"https://inceptaimg.s3.us-east-1.amazonaws.com/"+student.img} className="h-96 mx-auto w-full object-cover rounded-lg" />
                                     <div className=" py-2 flex flex-col relative">
                                     <div className="flex flex-row items-center justify-between mb-2">
-                                    <p className="font-1 font-bold text-2xl">{student.name.split(" ")[0] +" " + student.name.split(" ")[1].substring(0,1) + "."}</p>
+                                    <p className="font-1 font-bold text-2xl">{student.name.split(" ")[0]}</p>
                                     <div className="w-fit top-2 right-2 px-2 py-1 rounded-full  border-2 border-accent font-1 font-bold text-lg">
                                         <p>85 tokens</p>
                                     </div>
                                     </div>
                                     
 
-                                    <div className="flex flex-row gap-3">
+                                    <div className="flex flex-row gap-3 flex-wrap">
                                     {student.major.split(",").map((major,i) => (
                                         <p key={i} className="font-1 px-4 py-2 rounded-full font-bold w-fit bg-base-200">{major}</p>
                                     ))}
@@ -555,13 +622,13 @@ export default function Main(props){
 </div>
                     )}
                     {(schoolOpen === null) && (
-                        <div className="p-10 bg-base-200 w-full">
+                        <div className="lg:p-10 p-4 bg-base-200 w-full">
 
-                    <p className="font-2 text-4xl font-bold mb-2">Dashboard:</p>
-                    <div className="p-5 w-fit mx-auto mb-10 ">
-                    <div className="w-fit mx-auto relative">
+                    <p className="font-2 text-4xl font-bold mb-2 lg:text-left text-center">Dashboard:</p>
+                    <div className="lg:p-5 w-fit mx-auto mb-10 ">
+                    <div className="w-fit mx-auto relative mt-2">
                         <div className="join">
-                            <input value={search} onChange={(e) => setSearch(e.target.value)} className="input w-96 input-primary font-1 join-item" placeholder="Search for College..." />
+                            <input value={search} onChange={(e) => setSearch(e.target.value)} className="input lg:w-96 input-primary font-1 join-item" placeholder="Search for College..." />
                             <div className="join-item btn btn-primary font-1 btn-outline">
                                 Search
                             </div>
@@ -590,10 +657,10 @@ export default function Main(props){
                     
 
                     </div>
-                    <div className="grid grid-cols-3 items-center justify-items-center gap-4">
+                    <div className="grid lg:grid-cols-3 grid-cols-1 items-center justify-items-center gap-4">
 
                         {topSchool.map((school,i) => (
-                            <div key={i} className="bg-base-300 w-full h-full p-8 rounded-lg btn btn-base-200 flex flex-col" onClick={() => {
+                            <div key={i} className="bg-base-300 w-full h-full p-8 rounded-lg btn btn-base-200 flex flex-row justify-between" onClick={() => {
 
 
                                 
@@ -601,14 +668,23 @@ export default function Main(props){
                                 processStudents(i, false)
                             }}>
                                 {/* <img alt="schoolimage" src={school.img} className="p-2 bg-base-100 rounded-lg" /> */}
-                                <p className="font-1 text-4xl text-center font-bold">{school.name}</p>
-                        
+                                <p className="font-1 text-4xl font-bold">{school.name}</p>
+                                <p className="font-1 font-bold p-2 rounded-full bg-base-200">{school.users}</p>
                             </div>
 
                         ))}
                         
                         
+                        
                     </div>
+                    {(topSchool.length === 0) && (
+                            <div className="text-center w-full p-10 rounded-lg bg-base-300">
+                                <p className="font-1 font-semibold text-3xl">No Schools found</p>
+
+
+
+                            </div>
+                        )}
                     
 
                 </div>
@@ -619,7 +695,7 @@ export default function Main(props){
 
                 )}
                 {((currentMenu === "Dashboard") && (!user.student)) && (
-                    <Dashboard />
+                    <Dashboard setContacts={setContacts} />
                 )}
                 {(currentMenu === "Messaging") && (
                     <Messaging contacts={contacts} />
@@ -629,11 +705,17 @@ export default function Main(props){
                     <Settings />
                 )}
                 {(currentMenu === "Pricing") && (
-                    <div className="bg-base-300 w-full h-full p-10" data-theme="forest">
-                    <Pricing />
+                    <div className="bg-base-100 w-full h-full p-10" data-theme="forest">
+                        <Pricing />
                     </div>
                     
                 )}
+                    </>
+                
+                
+                
+                }
+                
                 
 
             </div>

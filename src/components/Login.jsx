@@ -1,13 +1,14 @@
 import React, {useState} from "react"
 import Navbar from "./Navbar"
 import FormError from "./FormError"
-
+import Loading from "./Loading"
 import Footer from "./Footer"
-const endpoint = "https://localhost:300"
+const endpoint =  "https://localhost:443"
 export default function Login(props) {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [errorMessage, setErrorMessage] = useState("")
+    const [loading, setLoading] = useState(false)
 
     const callLogin = () => {
         return new Promise(async(resolve) => {
@@ -32,14 +33,18 @@ export default function Login(props) {
     }
 
     const processLogin = () => {
+        setLoading(true)
         callLogin().then((res) => {
             if (res.code === "err") {
-                setErrorMessage("Invalid Request")
+                setErrorMessage("Invalid Request" + "|" + Math.floor(Math.random()*100))
+                setLoading(false)
 
             } else if (res.code === 'ok') {
                 window.location.replace("/main")
+                setLoading(false)
             } else {
-                setErrorMessage("Invalid Request")
+                setErrorMessage("Invalid Request" + "|" + Math.floor(Math.random()*100))
+                setLoading(false)
             }
         })
     }
@@ -51,13 +56,16 @@ export default function Login(props) {
     return (
 
         <>
+        {(loading) && (
+            <Loading />
+        )}
 
         <div className="" data-theme="forest">
             <Navbar />
             <div className="bg-base-100 pb-56">
 
             
-            <div className="bg-base-200 p-10 rounded-lg mt-24 mx-auto w-fit relative">
+            <div className="bg-base-200 p-10 rounded-lg mt-24 mx-auto w-fit relative max-w-screen">
                 <FormError error={errorMessage} />
                 <p className="text-3xl font-bold font-2 mb-4 text-center">Login</p>
                 <div className=" ">
@@ -74,7 +82,7 @@ export default function Login(props) {
                         }}>
                             <p className="font-2 text-lg">Login</p>
                         </button>
-                        <p className="text-sm text-center mt-1">Don't have an account? <a href="#" className="underline underline-offset-2">Sign up</a></p>
+                        <p className="text-sm text-center mt-1">Don't have an account? <a href="/signup" className="underline underline-offset-2">Sign up</a></p>
                         </div>
                         
                     </div>
@@ -91,6 +99,7 @@ export default function Login(props) {
             
         </div>
         <Footer />
+        
         
 
 

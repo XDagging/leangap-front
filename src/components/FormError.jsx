@@ -16,12 +16,16 @@ export default function FormError(props) {
     
 
     useEffect(() => {
-        if (message !== "") {
+        console.log(message.split("|"))
+        if (message.split("|")[0] !== "") {
             timeout = setTimeout(() => {
                 setMessage("")
             }, 3000)
         }
-        
+
+        return () => {
+            clearTimeout(timeout)
+        }        
     },[message])
 
 
@@ -34,9 +38,9 @@ export default function FormError(props) {
 
         <>
 
-        {(message !== "") && (
-            <div className="absolute p-3 rounded-lg bg-error left-[50%] translate-x-[-50%]" data-theme="forest">
-                <p className="text-center text-lg font-semibold text-white">{props.error}</p>
+        {(message.split("|")[0] !== "") && (
+            <div className="absolute p-3 z-40 rounded-lg bg-error left-[50%] translate-x-[-50%]" data-theme="forest">
+                <p className="text-center text-lg font-semibold text-white">{message.split("|")[0]}</p>
             </div>
 
         )}

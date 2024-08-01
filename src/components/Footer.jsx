@@ -17,24 +17,18 @@ export default function Footer(props) {
                 <p className="font-2">A Hernandez Production</p>
             </div>
             <div className="font-2 underline-offset-4">
-                <p className="underline link">Privacy Policy</p>
-                <p  className="underline link">Cookie Policy</p>
-                <p  className="underline link">Legal</p>
-                <p  className="underline link">For College Students</p>
+                <a href="/terms" className="underline link">Terms of Service</a>
+                <a href="/privacy"  className="underline link">Privacy Policy</a>
+                <a href="/signup" className="underline link">For College Students</a>
             </div>
             <div className="flex flex-row ">
-                <div className="btn btn-neutral btn-outline btn-circle">
+                <a className="btn btn-neutral btn-outline btn-circle" href="https://www.instagram.com/getincepta/?hl=en">
                     <FaInstagram />
-
-                </div>
-                <div className="btn btn-neutral btn-outline btn-circle">
-                    <FaTwitter />
-
-                </div>
-                <div className="btn btn-neutral btn-outline btn-circle">
+                </a>
+                <a href="https://www.tiktok.com/@getincepta" className="btn btn-neutral btn-outline btn-circle">
                     <FaTiktok />
 
-                </div>
+                </a>
                 
             </div>
         

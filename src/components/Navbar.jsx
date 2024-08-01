@@ -24,21 +24,22 @@ export default function Navbar(props) {
 
             <div className="flex-0 sm:block hidden">
                 <div className="w-full font-2 text-2xl flex flex-row gap-4 items-center justify-items-center"> 
-                    <div className="btn btn-ghost">
+                    {/* <div className="btn btn-ghost">
                         <p>About us</p>
-                    </div>
-                    <div className="btn btn-ghost">
+                    </div> */}
+                    {/* <div className="btn btn-ghost">
                         <p>What we do</p>
-                    </div>
-                    <a href="/pricing" className="btn btn-ghost">
-                        <p>Pricing</p>
-                    </a>
-                    <a href="/login">
-                    <div className="btn btn-accent font-1 text-lg">
-                        <p>Login</p>
+                    </div> */}
 
-                    </div>
+                    
+                    <a href="/main" className="btn btn-primary font-1 text-lg btn-outline">
+                        <p>Login</p>
                     </a>
+                    <a href="/signup" className="btn btn-accent font-1 text-lg">
+                        <p>Signup</p>
+                    </a>
+            
+                 
                     
                 </div>
             </div>
@@ -47,10 +48,12 @@ export default function Navbar(props) {
                 <div class="dropdown dropdown-bottom dropdown-end">
                     <div tabindex="0" role="button" class="btn m-1"><FaBars /></div>
                         <ul tabindex="0" class="dropdown-content gap-2 menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
-                            <li className=""><a className="font-2 font-bold">About Us</a></li>
-                            <li className=""><a className="font-2 font-bold">What we do</a></li>
-                            <li className=""><a className="font-2 font-bold">Pricing</a></li>
-                            <li className=""><a className="font-2 font-bold  text-white hover:bg-accent hover:text-black hover:bg-accent border-2 border-accent">Login</a></li>
+                            {/* <li className=""><a className="font-2 font-bold">About Us</a></li> */}
+                            {/* <li className=""><a className="font-2 font-bold">What we do</a></li> */}
+                            {/* <li className=""><a className="font-2 font-bold">Pricing</a></li> */}
+
+                            <li className=""><a href="/login" className="font-2 font-bold  text-white hover:bg-primary hover:text-black border-2 border-primary">Login</a></li>
+                            <li className=""><a href="/signup" className="font-2 font-bold  text-white hover:bg-accent hover:text-black border-2 border-accent">Signup</a></li>
                         </ul>
                     </div>
             </div>
