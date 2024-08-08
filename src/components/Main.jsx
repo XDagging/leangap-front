@@ -10,6 +10,13 @@ import { FaBarsStaggered } from "react-icons/fa6";
 const endpoint = "https://localhost:443"
 export default function Main(props){
 
+
+
+
+
+
+    const [schoolName, setSchoolName] = useState("")
+
     const [openNav, setOpenNav] = useState(false)    
     const [contacts, setContacts] = useState([])
     const [search, setSearch] = useState("")
@@ -43,6 +50,30 @@ export default function Main(props){
 
 
     
+    const requestCall = (uuid) => {
+        return new Promise(async(resolve) => {
+            
+
+            const response = await fetch(endpoint + "/requestcall", {
+                method: "POST", 
+                mode: "cors",
+                credentials: "include",
+                headers: {
+                  "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    receiver: uuid
+                })
+            })
+
+            resolve(response.json())
+
+            
+        })
+    }
+
+
+
 
     const processSearch = () => {
         
@@ -58,7 +89,13 @@ export default function Main(props){
     }
 
     useEffect(() => {
-        processSearch()
+        console.log("heres the current search", search.length)
+        if ((search.length%3 === 0) && (search.length !== 0)) {
+            console.log("doing search now!")
+            processSearch()
+        } else if (search.length === 0) {
+            setSearchResults([])
+        }
 
     }, [search])
 
@@ -373,15 +410,20 @@ export default function Main(props){
                 // window.location.replace("/login")
             }
 
-        })
+        })  
+
 
 
             callList().then((res) => {
                 if (res.code === "err") {
                     // window.location.replace("/login")
                 } else if (res.code === "ok") {
-                   
 
+
+                    
+                    
+                   
+                    
                     setTopSchool(res.message)
                     
                 } else {
@@ -442,6 +484,7 @@ export default function Main(props){
                         <div className="relative w-full h-full">
                             <div className="p-10 bg-base-200 w-full sticky top-0 left-0 flex flex-row gap-4 items-center justify-items-center">
                                 <div className="btn btn-circle btn-primary btn-outline" onClick={() => {
+                                    setSchoolName(null)
                                     setSchoolOpen(null)
 
                                 }}>
@@ -451,7 +494,7 @@ export default function Main(props){
 
                                 </div>
                                 <div>
-                                    <p className="font-1 font-semibold text-2xl">{topSchool[schoolOpen].name}</p>
+                                    <p className="font-1 font-semibold text-2xl">{schoolName}</p>
                                 </div>
                             </div>
                             <div>
@@ -494,10 +537,10 @@ export default function Main(props){
                                             <div className="grid grid-cols-2 gap-4 w-full">
                                             
                                             {(!student.match) && (
-                                                <div className="btn btn-secondary font-2 font-bold text-lg" onClick={() => {
+                                                <div className="btn btn-base-300 font-2 font-semibold text-lg" onClick={() => {
 
 
-                                                if (user.tokens > 0) {
+                                                if (user.tokens > 84) {
                                                     setMatchSelected(true)
                                                 setStudentList((prevList) => {
                                                     let newList = prevList
@@ -516,10 +559,7 @@ export default function Main(props){
 
                                             }}>
                                             
-                                                <p>Match</p><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-6">
-  <path fillRule="evenodd" d="M19.902 4.098a3.75 3.75 0 0 0-5.304 0l-4.5 4.5a3.75 3.75 0 0 0 1.035 6.037.75.75 0 0 1-.646 1.353 5.25 5.25 0 0 1-1.449-8.45l4.5-4.5a5.25 5.25 0 1 1 7.424 7.424l-1.757 1.757a.75.75 0 1 1-1.06-1.06l1.757-1.757a3.75 3.75 0 0 0 0-5.304Zm-7.389 4.267a.75.75 0 0 1 1-.353 5.25 5.25 0 0 1 1.449 8.45l-4.5 4.5a5.25 5.25 0 1 1-7.424-7.424l1.757-1.757a.75.75 0 1 1 1.06 1.06l-1.757 1.757a3.75 3.75 0 1 0 5.304 5.304l4.5-4.5a3.75 3.75 0 0 0-1.035-6.037.75.75 0 0 1-.354-1Z" clipRule="evenodd" />
-</svg>
-
+                                                <p>Text</p><div className="badge badge-neutral font-1 font-semibold badge-sm">85 credits</div>    
 
 
                                             </div>
@@ -560,6 +600,42 @@ export default function Main(props){
 
                                             </div>
 
+
+                                           
+                                            <div className="btn w-full mt-2 btn-primary" onClick={() => {
+                                                setLoading(true)
+                                                if (user.tokens >= 350) {
+                                                    requestCall(student.uuid).then((res) => {
+                                                        if (res.message === "not logged in") {
+                                                            window.location.replace("/login")
+                                                            setLoading(false)
+                                                            
+                                                        } else {
+                                                            console.log(res.message)
+                                                            setMatchSelected(true)
+                                                            setStudentList((prevList) => {
+                                                                let newList = prevList
+                                            
+                                                                newList[i].match = true
+                                                                return newList
+                                                
+                                                            })
+                                                            setLoading(false)
+                                                        }
+
+                                                    })
+                                                } else {
+                                                    setLoading(false)
+                                                    setCurrentMenu("Pricing")
+                                                }
+                                                
+
+
+
+                                            }}>
+                                                <p className="font-2 font-bold text-lg">Request a call</p>
+                                                <div className="badge badge-neutral badge-lg font-2 font-bold">350 credits</div>                                                
+                                            </div>
                                             <form method="dialog" className="hidden">
                                                 <button id={"closeModal"+i} onClick={() => {
                                                     setMatchSelected(false)
@@ -578,9 +654,7 @@ export default function Main(props){
                                     <div className=" py-2 flex flex-col relative">
                                     <div className="flex flex-row items-center justify-between mb-2">
                                     <p className="font-1 font-bold text-2xl">{student.name.split(" ")[0]}</p>
-                                    <div className="w-fit top-2 right-2 px-2 py-1 rounded-full  border-2 border-accent font-1 font-bold text-lg">
-                                        <p>85 tokens</p>
-                                    </div>
+                                    
                                     </div>
                                     
 
@@ -627,9 +701,9 @@ export default function Main(props){
                     <p className="font-2 text-4xl font-bold mb-2 lg:text-left text-center">Dashboard:</p>
                     <div className="lg:p-5 w-fit mx-auto mb-10 ">
                     <div className="w-fit mx-auto relative mt-2">
-                        <div className="join">
+                        <div className="lg:join">
                             <input value={search} onChange={(e) => setSearch(e.target.value)} className="input lg:w-96 input-primary font-1 join-item" placeholder="Search for College..." />
-                            <div className="join-item btn btn-primary font-1 btn-outline">
+                            <div className="join-item  btn btn-primary font-1 btn-outline lg:inline-flex hidden" onClick={() => processSearch()}>
                                 Search
                             </div>
 
@@ -638,7 +712,20 @@ export default function Main(props){
                             <div className="absolute p-2 bg-base-300 w-full mt-1 rounded-lg flex flex-col gap-2">
                             {searchResults.map((result,i) => (
                                 <div onClick={() => {
-                                    setSchoolOpen(i)
+
+
+
+                                    let thing;
+                                    for (let j=0; j<topSchool.length; j++) {
+                                        if (topSchool[j].name === result.school.toUpperCase()) {
+                                            thing = j
+                                            break
+                                        }
+                                    }
+                                    // const thing = topSchool.indexOf(result.school.toUpperCase()) 
+                                    // console.log(thing)
+                                    setSchoolName(result.school)
+                                    setSchoolOpen(thing)
                                     processStudents(result.school, true)
                                 }} key={i} className="flex relative flex-row select-none cursor-pointer group hover:bg-primary transition-all gap-4 items-center justify-items-center bg-base-100 rounded-lg p-2">
                                   
@@ -662,7 +749,7 @@ export default function Main(props){
                         {topSchool.map((school,i) => (
                             <div key={i} className="bg-base-300 w-full h-full p-8 rounded-lg btn btn-base-200 flex flex-row justify-between" onClick={() => {
 
-
+                                setSchoolName(school.name)
                                 
                                 setSchoolOpen(i)
                                 processStudents(i, false)
@@ -705,7 +792,7 @@ export default function Main(props){
                     <Settings />
                 )}
                 {(currentMenu === "Pricing") && (
-                    <div className="bg-base-100 w-full h-full p-10" data-theme="forest">
+                    <div className="bg-base-100 w-full h-full lg:p-10 p-3" data-theme="light">
                         <Pricing />
                     </div>
                     

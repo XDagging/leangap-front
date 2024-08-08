@@ -26,8 +26,6 @@ export default function Login(props) {
               }
 
               const response = await fetch(endpoint + "/login", headers)
-
-
               resolve(response.json())
         })
     }
@@ -36,7 +34,7 @@ export default function Login(props) {
         setLoading(true)
         callLogin().then((res) => {
             if (res.code === "err") {
-                setErrorMessage("Invalid Request" + "|" + Math.floor(Math.random()*100))
+                setErrorMessage("Invalid Credentials" + "|" + Math.floor(Math.random()*100))
                 setLoading(false)
 
             } else if (res.code === 'ok') {
@@ -82,6 +80,7 @@ export default function Login(props) {
                         }}>
                             <p className="font-2 text-lg">Login</p>
                         </button>
+                        <p className="text-center my-1"><a className="link" href="/forgotPassword">Forgot Password?</a></p>
                         <p className="text-sm text-center mt-1">Don't have an account? <a href="/signup" className="underline underline-offset-2">Sign up</a></p>
                         </div>
                         

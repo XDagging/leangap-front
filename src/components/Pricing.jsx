@@ -57,8 +57,169 @@ export default function Pricing(props) {
        
 
 
-<div className="lg:p-3 rounded-lg mx-auto w-full h-full my-24 space-y-8" data-theme="forest">
-            <p className="text-center font-1 lg:text-6xl text-4xl font-bold">Pricing:</p>
+    <div className="lg:p-3 rounded-lg mx-auto w-full h-full my-24 space-y-8" data-theme="light">
+            <p className="text-left font-1 lg:text-6xl text-4xl font-bold">Pricing:</p>
+
+            <div className="p-10 bg-base-300 rounded-lg flex flex-col">
+                <div className="grid grid-cols-2 items-center justify-center  gap-y-12 font-1 font-semibold text-lg ">
+                    <div className="">
+                        <p className="text-3xl">Price</p>
+                    </div>
+                    <div className="">
+                        <p className="text-3xl">Credits</p>
+                    </div>
+                    
+                    <div>
+                        <p className="font-2 font-semibold text-2xl">$8.99</p>
+                    </div>
+
+                    <div>
+                        <div className="btn w-fit btn-lg btn-neutral btn-outline" onClick={() => {
+                            makePayment({
+                                    name: "100 Tokens",
+                                    price: 8.99,
+
+                            })
+                        }}>
+                            <p className="font-1 font-semibold text-lg">100 Credits</p>
+                        </div>
+                    </div>
+
+
+                    <div>
+                        <p className="font-2 font-semibold text-2xl">$24.99</p>
+                    </div>
+                     
+                    <div>
+                        <div className="btn w-fit btn-lg btn-outline btn-base-300" onClick={() => {
+                            makePayment({
+                                    name: "300 Tokens",
+                                    price: 24.99,
+                                    
+                                }) 
+                        }}>
+                            <p className="font-1 font-semibold text-lg">300 Credits</p>
+                        </div>
+                    </div>
+                    <div>
+                        <p className="font-2 font-bold text-2xl">$29.99</p>
+                    </div>
+                     
+                    <div>
+                        <div className="btn w-fit btn-lg btn-outline btn-base-300 relative" onClick={() => {
+                            makePayment({
+                                    name: "350 Tokens",
+                                    price: 29.99,
+                                }) 
+                        }}>
+                            <div className="absolute top-[-13px] z-20 right-[-10px] badge badge-neutral font-1 font-bold ">
+                                Worth one call
+                            </div>
+                            <p className="font-1 font-semibold text-lg">350 Credits</p>
+                        </div>
+                    </div>
+
+
+                    <div>
+                        <p className="font-2 font-bold text-2xl">$44.99</p>
+                    </div>
+                    <div className="cursor-pointer select-none">
+                        
+                        <div className="w-fit relative">
+                        <div className="absolute top-[-13px] z-20 right-[-10px] badge badge-neutral font-1 font-bold ">
+                            20% more
+                        </div>
+                        <div className="btn w-fit btn-lg btn-neutral btn-outline" onClick={() => {
+
+                                makePayment({
+                                    name: "600 Tokens",
+                                    price: 44.99,
+                                    
+                                })
+
+
+                        }}>
+                            <p className="font-1 font-semibold text-lg">600 Credits</p>
+                        </div>
+                        </div>
+                        
+                    </div>
+
+
+                    
+                
+
+                </div>
+
+                
+
+            </div>
+            <div className="p-10 bg-base-300 rounded-lg mt-2 flex flex-col gap-3">
+                <div className="collapse collapse-arrow">
+
+                <input type="radio" name="typeShit"  />
+                <p className="font-1 text-2xl collapse-title">What are credits used for?</p>
+                <div className="collapse-content">
+                    <p className="font-2 font-semibold text-lg">Credits are used to purchase either message-based conversations or video calls with college students.</p>
+
+                </div>
+
+                </div>
+                <div className="collapse collapse-arrow ">
+
+                <input type="radio" name="typeShit"  />
+                <p className="font-1 text-2xl collapse-title">Why do I need credits?</p>
+                <div className="collapse-content">
+                    <p className="font-2 font-semibold text-lg">Credits allow incepta to ensure high quality conversations college and high school students.</p>
+
+                </div>
+
+                </div>
+                <div className="collapse collapse-arrow ">
+
+                <input type="radio" name="typeShit"  />
+                <p className="font-1 text-2xl collapse-title">How long are the conversations?</p>
+                <div className="collapse-content">
+                    <p className="font-2 font-semibold text-lg">Message-based conversations last 72 hours and video calls last 30 minutes per session. You can use more credits to continue your conversations.</p>
+
+                </div>
+
+                </div>
+
+
+
+                
+
+            </div>
+
+            {/* <div className="p-10 grid grid-cols-3 justify-between items-center gap-y-6 bg-black rounded-lg w-full">
+                <div className="col-span-2 w-full">
+                    <p className="font-1 font-bold text-2xl">Pricing</p>
+
+                </div>
+
+                <div>
+                    <p className="font-1 font-semibold text-2xl">Tokens</p>
+                
+
+                </div>
+                <hr className="col-span-3 border-b-2 border-white rounded-full"></hr>
+
+                <div className="col-span-2">
+                    <p className="font-2 font-bold text-xl">$8.99</p>
+                </div>
+
+                <div className="btn w-fit">
+                    <p className="font-2 font-semibold text-lg">100 Tokens</p>
+                </div>
+
+                <hr className="col-span-3 border-b-2 border-white rounded-full"></hr>
+
+
+
+
+            </div> */}
+            
 
 
 

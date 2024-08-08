@@ -52,7 +52,7 @@ export default function Navbar(props) {
                             {/* <li className=""><a className="font-2 font-bold">What we do</a></li> */}
                             {/* <li className=""><a className="font-2 font-bold">Pricing</a></li> */}
 
-                            <li className=""><a href="/login" className="font-2 font-bold  text-white hover:bg-primary hover:text-black border-2 border-primary">Login</a></li>
+                            <li className=""><a href="/main" className="font-2 font-bold  text-white hover:bg-primary hover:text-black border-2 border-primary">Login</a></li>
                             <li className=""><a href="/signup" className="font-2 font-bold  text-white hover:bg-accent hover:text-black border-2 border-accent">Signup</a></li>
                         </ul>
                     </div>

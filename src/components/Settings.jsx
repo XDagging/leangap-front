@@ -15,6 +15,7 @@ export default function Settings(props) {
     const [name, setName] = useState(users.name)
     const [bio, setBio] = useState(users.bio)
     const [loading, setLoading] = useState(false)
+    const [paymentLink, setPaymentLink] = useState(users.paymentLink)
     const [errorMessage, setErrorMessage] = useState("")
     const [bioLength, setBioLength] = useState(0)
 
@@ -79,9 +80,9 @@ export default function Settings(props) {
         let passedForm = true;
         setLoading(true)
         if (!users.student) {
-            if ((bio.length < 20) || (bio.length > 150)) {
+            if ((bio.length < 20) || (bio.length > 600)) {
                 passedForm = false
-                setErrorMessage("Bio must be between 20 and 150 characters"  + "|" + Math.floor(Math.random()*100))
+                setErrorMessage("Bio must be between 20 and 600 characters"  + "|" + Math.floor(Math.random()*100))
             } 
         }
         if (name.length < 1) {
@@ -119,6 +120,24 @@ export default function Settings(props) {
 
 
 
+    const changeLink = () => {
+        return new Promise(async(resolve) => {
+            
+            const response = await fetch(endpoint + '/addPayment', {
+                method: "POST",
+                    mode: "cors",
+                    credentials: "include",
+                    headers: {
+                      "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        paymentLink: paymentLink
+                    })
+             })
+             resolve(response.json())
+        })
+    }
+
 
    
     
@@ -132,7 +151,7 @@ export default function Settings(props) {
             <p className="font-2 font-bold text-2xl">Settings</p>
             <div className="p-4 rounded-lg bg-base-300 mt-2">
                 <p className="font-1 font-semibold">Basic Info:</p>
-                <div className="grid grid-cols-2 w-fit gap-2 mt-3 relative">
+                <div className="grid lg:grid-cols-2 w-fit gap-2 mt-3 relative">
                         <FormError error={errorMessage} />
                         <div className="flex flex-col gap-2">
                         <div className="p-3 bg-base-200 rounded-lg">
@@ -169,7 +188,7 @@ export default function Settings(props) {
                         
                     </div>
                 )}
-                <div className="col-span-2">
+                <div className="lg:col-span-2">
                     <div className="btn btn-secondary w-full font-1 font-semibold text-lg" onClick={submitForm}>
                         <p>Change Profile</p>
 
@@ -189,6 +208,42 @@ export default function Settings(props) {
 
                 <div className="mt-2 flex lg:flex-row flex-col lg:p-10 gap-2 ">
                     <div className="bg-base-100 w-full lg:p-8 rounded-lg p-2">
+
+                        <p className="font-1 font-semibold text-lg">Link your payment info</p>
+                        <div className="p-4 rounded-lg bg-base-300 mb-4">
+                            <p className="font-2 font-semibold">Add your <b>Paypal.me </b>link</p>
+                            <div className="join-vertical join mt-2">
+                            <input value={paymentLink} onChange={(e) => {
+                                setPaymentLink(e.target.value)
+                            }} type="text" className="text-center input input-secondary font-1 join-item" placeholder="Ex: paypal.me/myName" />
+                            <div className="btn btn-accent join-item" onClick={(e) => {
+
+                                if (users.paymentLink === paymentLink) {
+                                    setErrorMessage("Same payment link as on file"  + "|" + Math.floor(Math.random()*100))
+                                } else if (paymentLink.length < 5) {
+                                    setErrorMessage("Invalid payment link"  + "|" + Math.floor(Math.random()*100))
+                                } else {
+                                    changeLink()
+                                }
+
+                                
+
+                            }}>
+                                <p className="font-1 font-bold">Add your link</p>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-6">
+  <path fillRule="evenodd" d="M19.902 4.098a3.75 3.75 0 0 0-5.304 0l-4.5 4.5a3.75 3.75 0 0 0 1.035 6.037.75.75 0 0 1-.646 1.353 5.25 5.25 0 0 1-1.449-8.45l4.5-4.5a5.25 5.25 0 1 1 7.424 7.424l-1.757 1.757a.75.75 0 1 1-1.06-1.06l1.757-1.757a3.75 3.75 0 0 0 0-5.304Zm-7.389 4.267a.75.75 0 0 1 1-.353 5.25 5.25 0 0 1 1.449 8.45l-4.5 4.5a5.25 5.25 0 1 1-7.424-7.424l1.757-1.757a.75.75 0 1 1 1.06 1.06l-1.757 1.757a3.75 3.75 0 1 0 5.304 5.304l4.5-4.5a3.75 3.75 0 0 0-1.035-6.037.75.75 0 0 1-.354-1Z" clipRule="evenodd" />
+</svg>
+
+
+                            </div>
+                            </div>
+                            
+
+                        
+
+                        </div>
+
+
                         <p className="font-2 text-lg font-semibold">Amount Earned</p>
                         <div className="p-4 bg-base-300 rounded-lg mb-2">
                         <p className="font-1 p-2 bg-neutral w-fit rounded-lg font-bold text-lg mb-2">${users.amountEarned.toFixed(2)}</p>

@@ -73,6 +73,117 @@ export default function Index(props) {
             </div>
         </div>
 
+        <div className="bg-base-300 w-full p-10">
+            <h1 className="font-1 text-center text-6xl font-bold">Meet some of our college students</h1>
+
+            <div className="grid lg:grid-cols-2 grid-cols-1 items-center justify-items-center lg:p-10 lg:w-fit w-full mt-10 lg:bg-base-100 mx-auto rounded-lg gap-5">
+                <div className="rounded-lg p-3 bg-base-200 w-fit h-fit flex lg:flex-row flex-col gap-2">
+                    <div className="avatar mx-auto">
+                        <div className="mask mask-squircle w-48">
+                            <img alt="collegeStudentPhoto" src="https://inceptaimg.s3.us-east-1.amazonaws.com/16246a3a4f2b009320cd879dc15423bce92fa864d5625779cfb9e32bddd0170973066a150722924af4cccf6cc427a5212c64e7ad5fdee05fb8ca8bc0beedc24c.png" />
+
+                        </div>
+                    </div>
+                    <div className="p-9 bg-base-100 rounded-lg w-full">
+                    <div className="border-[1px] border-primary bg-base-100 font-1 font-semibold p-2 rounded-full w-fit px-4 text-xl">
+                    <p className="text-center">Columbia University</p>
+                    </div>
+                        <div className="mb-2">
+                        <p className="font-2 font-bold text-3xl mt-3">Krithvi</p>
+                        <p className="font-1 ">Premed</p>
+                        </div>
+                        
+                        <a href="/signup" className="btn btn-accent btn-outline font-1">
+                            <p>Connect now</p><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-6">
+  <path fillRule="evenodd" d="M19.902 4.098a3.75 3.75 0 0 0-5.304 0l-4.5 4.5a3.75 3.75 0 0 0 1.035 6.037.75.75 0 0 1-.646 1.353 5.25 5.25 0 0 1-1.449-8.45l4.5-4.5a5.25 5.25 0 1 1 7.424 7.424l-1.757 1.757a.75.75 0 1 1-1.06-1.06l1.757-1.757a3.75 3.75 0 0 0 0-5.304Zm-7.389 4.267a.75.75 0 0 1 1-.353 5.25 5.25 0 0 1 1.449 8.45l-4.5 4.5a5.25 5.25 0 1 1-7.424-7.424l1.757-1.757a.75.75 0 1 1 1.06 1.06l-1.757 1.757a3.75 3.75 0 1 0 5.304 5.304l4.5-4.5a3.75 3.75 0 0 0-1.035-6.037.75.75 0 0 1-.354-1Z" clipRule="evenodd" />
+</svg>
+
+
+                        </a>
+                        
+
+                    </div>
+                    
+
+                </div>
+
+
+                <div className="rounded-lg p-3 bg-base-200 w-fit h-fit flex lg:flex-row flex-col gap-2">
+                    <div className="avatar mx-auto">
+                        <div className="mask mask-squircle w-48">
+                            <img alt="collegeStudentPhoto" src="https://inceptaimg.s3.us-east-1.amazonaws.com/de08070ac6b6923f20e2e38f37d3fe85b4cfb653d733d137bbbe9f43c438f493ff9b9c162828f62090ae8619be7273660a3e86fe4c8f01cfd888ecc5b2ec38a8.png" />
+
+                        </div>
+                    </div>
+                    <div className="p-9 bg-base-100 rounded-lg w-full">
+                    <div className="border-[1px] border-primary bg-base-100 font-1 font-semibold p-2 rounded-full w-fit px-4 text-xl">
+                    <p className="text-center">Brown University</p>
+                    </div>
+                        <div className="mb-2">
+                        <p className="font-2 font-bold text-3xl mt-3">Nainika</p>
+                        <p className="font-1 ">Computer Science and Math</p>
+                        </div>
+                        
+                        <a href="/signup" className="btn btn-accent btn-outline font-1">
+                            <p>Connect now</p><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-6">
+  <path fillRule="evenodd" d="M19.902 4.098a3.75 3.75 0 0 0-5.304 0l-4.5 4.5a3.75 3.75 0 0 0 1.035 6.037.75.75 0 0 1-.646 1.353 5.25 5.25 0 0 1-1.449-8.45l4.5-4.5a5.25 5.25 0 1 1 7.424 7.424l-1.757 1.757a.75.75 0 1 1-1.06-1.06l1.757-1.757a3.75 3.75 0 0 0 0-5.304Zm-7.389 4.267a.75.75 0 0 1 1-.353 5.25 5.25 0 0 1 1.449 8.45l-4.5 4.5a5.25 5.25 0 1 1-7.424-7.424l1.757-1.757a.75.75 0 1 1 1.06 1.06l-1.757 1.757a3.75 3.75 0 1 0 5.304 5.304l4.5-4.5a3.75 3.75 0 0 0-1.035-6.037.75.75 0 0 1-.354-1Z" clipRule="evenodd" />
+</svg>
+
+
+                        </a>
+                        
+
+                    </div>
+                    
+
+                </div>
+                <div className="lg:col-span-2">
+
+                <div className="rounded-lg p-3 bg-base-200 w-fit h-fit flex lg:flex-row flex-col gap-2">
+                    <div className="avatar mx-auto">
+                        <div className="mask mask-squircle w-48">
+                            <img alt="collegeStudentPhoto" src="https://inceptaimg.s3.us-east-1.amazonaws.com/b58078fea7ca1dbe5fe2506e1adccd425fecaa64867b94a6773a98e6e639652d4be82251dc7cf4e58d3ac32ac67495709f4067e02a6d7a4aa938c94b92bac14e.png" />
+
+                        </div>
+                    </div>
+                    <div className="p-9 bg-base-100 rounded-lg w-full">
+                    <div className="border-[1px] border-primary bg-base-100 font-1 font-semibold p-2 rounded-full w-fit px-4 text-xl">
+                    <p className="text-center">Duke University</p>
+                    </div>
+                        <div className="mb-2">
+                        <p className="font-2 font-bold text-3xl mt-3">M</p>
+                        <p className="font-1 ">Computer Science</p>
+                        </div>
+                        
+                        <a href="/signup" className="btn btn-accent btn-outline font-1">
+                            <p>Connect now</p><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-6">
+  <path fillRule="evenodd" d="M19.902 4.098a3.75 3.75 0 0 0-5.304 0l-4.5 4.5a3.75 3.75 0 0 0 1.035 6.037.75.75 0 0 1-.646 1.353 5.25 5.25 0 0 1-1.449-8.45l4.5-4.5a5.25 5.25 0 1 1 7.424 7.424l-1.757 1.757a.75.75 0 1 1-1.06-1.06l1.757-1.757a3.75 3.75 0 0 0 0-5.304Zm-7.389 4.267a.75.75 0 0 1 1-.353 5.25 5.25 0 0 1 1.449 8.45l-4.5 4.5a5.25 5.25 0 1 1-7.424-7.424l1.757-1.757a.75.75 0 1 1 1.06 1.06l-1.757 1.757a3.75 3.75 0 1 0 5.304 5.304l4.5-4.5a3.75 3.75 0 0 0-1.035-6.037.75.75 0 0 1-.354-1Z" clipRule="evenodd" />
+</svg>
+
+
+                        </a>
+                        
+
+                    </div>
+                    
+
+                </div>
+
+
+
+
+                </div>
+                
+
+
+
+
+
+            </div>
+        </div>
+
+
+
         <div className="bg-base-100 min-h-[60vh] justify-stretch content-center">
             <p className="text-5xl font-1 font-bold text-center mt-20">Testimonials:</p>
 
@@ -157,7 +268,7 @@ export default function Index(props) {
                 <input type="radio" name="my-accordion-1"/>
                 <div className="collapse-title text-3xl font-medium">Is it free for college students or high school students?</div>
                 <div className="collapse-content">
-                    <p className="text-2xl">College students can sign up for free on the platform, but high school students must make at least one payment before joining the platform.</p>
+                    <p className="text-2xl">College students and High School students can sign up for free on the platform. However, for highschoolers to talk to college students, they need to pay a premium beforehand</p>
                 </div>
             </div>
             <div className="collapse collapse-arrow bg-base-200 p-4 m-4 lg:w-2/3 w-full mx-auto outline outline-4 outline-gray-600 outline-offset-2">
@@ -178,7 +289,7 @@ export default function Index(props) {
                 <input type="radio" name="my-accordion-1" />
                 <div className="collapse-title text-3xl font-medium">How do college students get paid?</div>
                 <div className="collapse-content">
-                    <p className="text-2xl">Every conversation that a college student engages in pays a base rate of $1.50, with an addition of $1.00 given a rating system (every star the high school student gives is $0.20). After getting $50 or more across all of their conversations, they can cash out.</p>
+                    <p className="text-2xl">Every texting conversation that a college student engages in pays a base rate of $4.00. Every video call a college student engages in results in a base pay of $20 for a 30 minute call. After getting $50 or more across all of their conversations, they can cash out.</p>
                 </div>
             </div>
             <div className="collapse collapse-arrow bg-base-200 p-4 m-4 lg:w-2/3 w-full mx-auto outline outline-4 outline-gray-600 outline-offset-2 mb-20">

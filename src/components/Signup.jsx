@@ -149,13 +149,13 @@ export default function Signup(props) {
             if (bio.length < 20) {
                 setErrorMessage("Bio must be at least 20 characters" + "|" + Math.floor(Math.random()*100))
                 passedValidation = false
-            } else if (bio.length > 150) {
-                setErrorMessage("Bio cannot be more than 150 characters" + "|" + Math.floor(Math.random()*100))
+            } else if (bio.length > 600) {
+                setErrorMessage("Bio cannot be more than 600 characters" + "|" + Math.floor(Math.random()*100))
                 passedValidation = false
             } else if (img === "") {
                 setErrorMessage("Add an image" + "|" + Math.floor(Math.random()*100))
                 passedValidation = false    
-            } else if (email.split("@")[1].split(".")[1] !== "edu") {
+            } else if (email.substring(email.length-4) !== ".edu") {
                 setErrorMessage("Use your college email (.edu)" + "|" + Math.floor(Math.random()*100))
                 passedValidation = false
             }
@@ -221,7 +221,7 @@ export default function Signup(props) {
 
         
         {(currentSlide ===0) && (
-            <div className="grid lg:grid-cols-2 items-center justify-items-center p-4 select-none gap-4">
+            <div className="grid lg:grid-cols-2 items-center justify-items-center lg:p-4 select-none gap-4">
                 <div className="w-full h-full bg-base-200 p-10 hover:bg-base-100 transition-all rounded-lg cursor-pointer" onClick={(e) => {
                     setUserType("student")
                     nextSlide()
@@ -251,11 +251,11 @@ export default function Signup(props) {
 
         )}
         {(currentSlide === 1) && (
-            <div className="text-left p-5">
+            <div className="text-left lg:p-5 p-2">
                 <p className="font-2 text-2xl font-bold">Basic Information:</p>
                 <p className="font-1 text-lg font-semibold">{userType==="student" ? "Student signup" : "College signup"}</p>
                 
-                <div className="p-4 rounded-lg bg-base-100 grid grid-cols-1 lg:grid-cols-2  gap-4">
+                <div className="lg:p-4 p-2 rounded-lg bg-base-100 grid grid-cols-1 lg:grid-cols-2  gap-4">
 
                     <div className="flex flex-col gap-2 p-4 rounded-lg bg-neutral">
                         <div className="grid grid-col-2 items-center">
@@ -295,7 +295,7 @@ export default function Signup(props) {
                             )}
                                 
                             </div>
-                            <div className="join">
+                            <div className="lg:join">
                                 <select className="select select-accent font-1 font-semibold join-item lg:w-full w-40 max-w-full" value={currentInterest} onChange={(e) => {
                                     setCurrentInterest(e.target.value)
                                     // if ((currentInterest !== "") && (!interests.includes(currentInterest)) && (interests.length < 6)) {
@@ -339,7 +339,7 @@ export default function Signup(props) {
 
                                 
                                 </select>
-                                <div id="addThing" className="join-item btn btn-accent" onClick={(e) => {
+                                <div id="addThing" className="join-item btn btn-accent lg:inline-flex hidden" onClick={(e) => {
                                     if ((currentInterest !== "") && (!interests.includes(currentInterest)) && (interests.length < 6)) {
                                         setInterests((prevInterests) => {
                                             return [...prevInterests, currentInterest]
@@ -392,7 +392,7 @@ export default function Signup(props) {
                             </div>
                             <div>
                                 <input type="password" maxLength="19" className="input input-accent font-1 font-semibold max-w-full" placeholder="**********" value={password} onChange={(e) => {
-                                    setPassword(e.target.value)
+                                    setPassword(e.target.value.trim())
                                 }} />
                             </div>
 

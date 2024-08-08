@@ -8,6 +8,7 @@ import Terms from "./Terms"
 import Privacy from "./Privacy"
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Youtube from "./Youtube"
+import ForgotPassword from "./ForgotPassword"
 
 import SearchCollege from "./SearchCollege";
 
@@ -29,6 +30,7 @@ export default function App(props) {
             <Route index path="/signup" element={<Signup />} />
             <Route path="/pricing" element={<PricingPage />} />
             <Route index path="/main" element={<Main />} />
+            <Route path="/forgotPassword" element={<ForgotPassword />} />
             {/* <Route path="/search" element={<SearchCollege />} /> */}
             <Route index path="/terms" element={<Terms/>} />
             <Route index path="/privacy" element={<Privacy />} />
